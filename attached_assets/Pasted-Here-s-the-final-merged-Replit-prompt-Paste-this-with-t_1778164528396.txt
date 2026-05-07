@@ -1,0 +1,567 @@
+Here’s the final merged Replit prompt. Paste this with the logo uploaded.
+
+Build a complete polished mobile-first PWA prototype called Occu-Med CaseTrack.
+
+This needs to be built in one pass as a working prototype with mock data/local storage first. Do not stop to ask questions. Do not require real backend credentials. Do not build real Claris FileMaker integration yet. Instead, include placeholder integration settings for future Claris FileMaker Pro / FileMaker Server Data API connection.
+
+The app should feel like a real published mobile app even though it is a web/PWA prototype.
+
+BRAND / STYLE:
+Use a dark macOS Tahoe liquid glass UI style:
+
+* deep navy / royal blue / charcoal gray / white
+* extra luminous blue glow effects
+* animated blue glow behind cards
+* soft radial light gradients
+* glowing borders on active cards/buttons
+* glass reflections
+* subtle neon-blue hover/press states
+* moving light shimmer on primary buttons
+* luminous status badges
+* layered frosted-glass depth
+* dark navy aurora-style background effects
+* frosted glass cards
+* rounded corners
+* smooth transitions
+* polished mobile spacing
+* modern bottom navigation
+* status badges
+* notification badges
+* splash screen
+* onboarding/login screen
+* app icon placeholder
+* loading states and empty states
+* realistic mock data
+
+LOGO:
+I will upload the Occu-Med logo with this prompt. Integrate the uploaded logo throughout the app:
+
+* splash screen
+* login/welcome screen
+* app header
+* profile/settings screen
+* eForms/authorization form branding
+* case manager portal header
+* empty states where appropriate
+
+Use the uploaded logo cleanly and professionally. Do not distort it. If needed, place it inside a glass/luminous badge or rounded logo container.
+
+APP PURPOSE:
+Occu-Med CaseTrack is an applicant/employee medical readiness experience platform for people going through pre-employment or annual employment medical exams with Occu-Med. The app tracks case status, explains next steps, allows document upload, supports RDQA follow-up, waiver tracking, messaging, appointment requests, clinic mapping, reminders, and in-app form completion/signature.
+
+CORE USERS:
+
+1. Applicant / employee
+2. Case manager / admin
+3. Optional future employer/client view placeholder
+
+BUILD WITH:
+
+* React or Next.js if available in Replit
+* Mobile-first responsive layout
+* PWA behavior if possible
+* Mock data/local storage
+* No paid APIs required
+* Use clean modular components
+
+IMPORTANT:
+This is a prototype, but it must look and feel realistic. Prioritize front-end completeness and user flow over perfect backend architecture.
+
+APP SECTIONS:
+
+1. Splash / Welcome / Login
+    Create a polished splash screen and login screen.
+    Allow demo mode login as:
+
+* Applicant
+* Case Manager/Admin
+
+Applicant login should also show:
+
+* invitation code field
+* explanation that applicants must be invited by Occu-Med
+
+2. Applicant Dashboard
+    Show:
+
+* applicant name
+* employer
+* position
+* exam type: Pre-employment or Annual
+* case number
+* current case status
+* progress percentage
+* current responsibility:
+    * Waiting on applicant
+    * Waiting on clinic
+    * Waiting on Occu-Med
+    * Waiting on provider
+    * Waiting on waiver authority
+* next required action
+* deadline if RDQA applies
+* quick actions:
+    * Upload Documents
+    * Message Case Manager
+    * Request Phone Appointment
+    * Request Extension
+    * View Forms
+    * View Clinic Map
+
+3. Smart Task Checklist
+    Create task cards with:
+
+* Complete
+* Pending
+* Missing
+* Needs Correction
+* Urgent
+
+Example tasks:
+
+* Physical completed
+* Labs pending from clinic
+* Dental form missing signature
+* Follow-up letter needed from cardiologist
+* Upload CPAP compliance report
+* Submit blood pressure log
+* Complete authorization form
+* Waiver packet pending
+
+Each task should include:
+
+* clear instructions
+* priority
+* due date if applicable
+* who is responsible
+* button for next action
+
+4. Live Case Timeline
+    Create a package-tracking style timeline with dates:
+
+* Referral received
+* Scheduling in progress
+* Appointment scheduled
+* Authorization sent
+* Appointment attended
+* Results pending
+* Results received
+* Under SME medical review
+* RDQA required
+* Additional info requested
+* Additional info submitted
+* Final recommendation pending
+* Cleared
+* Accommodation required
+* Waiver required
+* Waiver prepared
+* Waiver submitted
+* Waiver determination pending
+* Waiver approved
+* Waiver denied
+* Appeal submitted
+* Appeal approved
+* Appeal denied
+
+Use status icons and colors.
+
+5. Document Upload Center
+    Allow mock upload of records.
+    Include categories:
+
+* Provider letter
+* Specialist clearance
+* Lab results
+* Imaging report
+* Vaccine record
+* CPAP compliance
+* Blood pressure log
+* Waiver documents
+* Appeal documents
+* Other records
+
+Add mock document quality checks:
+
+* blurry image warning
+* cut off page warning
+* missing signature warning
+* missing page warning
+* duplicate document warning
+* unreadable handwriting warning
+
+Show uploaded document list and status:
+
+* Received
+* Under review
+* Needs correction
+* Accepted
+
+6. RDQA Explainer Center
+    Create a plain-English RDQA section:
+
+* What RDQA means
+* Why additional information may be requested
+* What the provider needs to address
+* How deadlines work
+* How to request an extension
+* What happens after submission
+
+Add an AI-style “Explain this request” mock feature:
+User can paste an RDQA request and the app turns it into:
+
+* simple explanation
+* checklist
+* provider instructions
+* urgency level
+
+7. Provider Instruction Generator
+    Applicant selects:
+
+* condition
+* specialist type
+* requested clarification type
+
+Generate a printable provider instruction checklist.
+
+Example output:
+“Please ask your provider to address whether you can safely perform the essential job functions of your position, whether restrictions or accommodations are recommended, and whether additional treatment or monitoring is needed.”
+
+Include examples for:
+
+* hypertension
+* diabetes
+* asthma
+* cardiac history
+* psychiatric history
+* orthopedic injury
+* sleep apnea / CPAP
+
+8. Messaging Center
+    Create secure-looking message thread between applicant and case manager.
+    Applicant can:
+
+* send message
+* attach document
+* ask question
+* request clarification
+
+Case manager can:
+
+* reply
+* mark message resolved
+* request more documents
+
+9. Phone Appointment Request
+    Applicant can request a phone appointment with case manager.
+    Include:
+
+* preferred date
+* preferred time block
+* reason for call
+* urgency level
+* submit request
+
+Show mock appointment status:
+
+* pending
+* scheduled
+* completed
+* cancelled
+
+10. Extension Request
+    If RDQA is required, allow applicant to request an extension.
+    Fields:
+
+* reason
+* requested new date
+* whether provider appointment is scheduled
+* upload supporting proof if applicable
+
+Case manager view should allow:
+
+* approve
+* deny
+* add note
+
+11. Waiver and Appeal Tracker
+    For defense contractor cases, include waiver flow:
+
+* Waiver required
+* Waiver packet prepared
+* Waiver submitted
+* Awaiting waiver authority determination
+* More information requested
+* Approved
+* Denied
+* Appeal submitted
+* Appeal approved
+* Appeal denied
+
+Applicant should see plain-English explanations at each step.
+
+12. Built-In Clinic Map
+    Build a built-in map section using mock clinic data. If real map libraries are difficult, create a polished map-style interface with cards and pins.
+
+Map features:
+
+* applicant can view nearby clinics
+* search by ZIP/city
+* filter by service type:
+    * occupational health
+    * urgent care
+    * labs
+    * imaging
+    * dental
+    * vaccination
+    * treadmill stress test
+    * pulmonary function test
+    * audiogram
+    * hospital-based services
+    * advanced diagnostic imaging
+* show chain vs non-chain
+* show estimated distance
+* show services available
+* show referral status:
+    * preferred
+    * active
+    * needs confirmation
+    * not available
+* one-tap directions button that opens phone map link placeholder
+* clinic detail card with address, phone, services, notes, and referral instructions
+
+13. Automated Reminder Center
+    Create a reminder system for applicants and case managers.
+
+Reminder examples:
+
+* upcoming appointment
+* bring authorization packet
+* fasting reminder for labs
+* medication instructions reminder placeholder
+* deadline approaching
+* missing records
+* provider letter still needed
+* upload requested document
+* read the portal message
+* complete authorization form
+* waiver update pending
+* phone appointment reminder
+
+Include a “phone map integration” style reminder for clinic appointments:
+
+* appointment location card
+* directions button
+* leave-by time placeholder
+* add-to-calendar placeholder
+* travel reminder placeholder
+
+Also include reminder settings:
+
+* push notification placeholder
+* SMS placeholder
+* email placeholder
+* in-app notification
+
+14. In-House DocuSign-Style Form Completion Tool
+    Build an internal e-sign/form tool prototype.
+
+Name it:
+“OccuSign” or “Occu-Med eForms”
+
+Applicants should be able to:
+
+* view assigned forms
+* complete fields
+* check required boxes
+* type initials
+* draw or type signature
+* agree to electronic signature consent
+* submit completed form
+* download/view completed PDF placeholder
+
+Forms to include as mock templates:
+
+* Authorization for Examination
+* HIPAA / Medical Records Release
+* Consent to Electronic Records and Signatures
+* Provider Release Authorization
+* RDQA Acknowledgment Form
+
+Add completion tracking:
+
+* Not started
+* In progress
+* Missing required fields
+* Ready to submit
+* Submitted
+
+Add audit trail mock:
+
+* applicant name
+* email
+* date/time signed
+* IP address placeholder
+* device/user agent placeholder
+* consent checkbox recorded
+* signature hash placeholder
+
+15. Digital Medical Record Vault
+    Create a vault for reusable documents:
+
+* vaccine records
+* titers
+* QFT
+* labs
+* imaging
+* specialist letters
+* CPAP compliance
+* stress test
+* audiogram
+* dental clearance
+
+Show expiration/reminder badges where applicable.
+
+16. Travel Readiness Dashboard
+    For deployment cases:
+
+* passport expiration placeholder
+* vaccine readiness
+* waiver status
+* document readiness
+* country/AOR requirements placeholder
+* deployment eligibility status
+
+17. Multi-Language / Accessibility Placeholder
+    Add settings for:
+
+* language
+* larger text
+* simplified explanation mode
+* high contrast mode
+* voice note placeholder
+
+18. Case Manager/Admin Portal
+    Build admin dashboard with:
+
+* all cases
+* search
+* filters by status
+* priority
+* applicant responsibility
+* clinic delay
+* RDQA deadline
+* waiver status
+
+Admin features:
+
+* generate invitation code
+* create mock case
+* view case details
+* update case status manually
+* review uploaded documents
+* approve/deny extension requests
+* send applicant message
+* assign task
+* request document correction
+* view reminder queue
+* view map/clinic data
+* view eForms status
+* view audit trail mock
+
+19. Invitation Code Generator
+    Admin can generate invitation codes.
+    Fields:
+
+* applicant name
+* applicant email
+* employer
+* position
+* exam type
+* case number
+* expiration date
+
+Show generated invite code and copy button.
+
+20. Claris FileMaker Pro / FileMaker Server Integration Placeholder
+    Create a settings page for future integration with Claris FileMaker Pro / FileMaker Server through the FileMaker Data API.
+
+Include placeholder fields for:
+
+* FileMaker Server URL
+* Database name
+* Layout name
+* Case table name
+* Applicant/employee table name
+* Document table name
+* API username
+* API password
+* FileMaker Data API enabled: Yes/No
+* Sync direction:
+    * FileMaker to CaseTrack
+    * CaseTrack to FileMaker
+    * Two-way sync
+* Last sync time
+* Test connection button
+* Sync status indicator
+
+Do not attempt real FileMaker integration yet. The prototype should use mock data/local storage only, but it should be designed as if it will later connect to Claris FileMaker Pro through the FileMaker Data API.
+
+Also include future placeholders:
+
+* SMS provider
+* email provider
+* calendar integration
+* maps integration
+* storage provider
+* e-signature certificate storage
+
+APP NAVIGATION:
+Use bottom tabs for applicant:
+
+* Home
+* Tasks
+* Uploads
+* Messages
+* More
+
+More screen includes:
+
+* Timeline
+* Map
+* Reminders
+* Forms/eSign
+* Medical Vault
+* Travel Readiness
+* Profile
+* Settings
+
+For case manager/admin:
+
+* Dashboard
+* Cases
+* Invites
+* Messages
+* More
+
+DATA:
+Use realistic mock applicant:
+Name: Alex Applicant
+Employer: V2X
+Position: Logistics Specialist
+Exam Type: Pre-employment
+Case Number: OM-2026-0148
+Current Status: RDQA Required
+Deadline: 10 days from today
+Current Responsibility: Waiting on Applicant
+Next Action: Upload cardiology clearance letter and blood pressure log
+
+Use realistic mock case manager:
+Name: Morgan Case Manager
+
+Use several mock cases with different statuses.
+
+DELIVERABLE:
+Produce a complete working Replit app prototype that runs immediately.
+Do not ask questions.
+Do not pause for confirmation.
+If a complex feature cannot be fully implemented, create a polished functional placeholder screen for it instead of omitting it.
+The final result must feel like a real mobile app demo.
