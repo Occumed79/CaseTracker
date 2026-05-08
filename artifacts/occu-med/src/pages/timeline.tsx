@@ -1,64 +1,86 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Clock, Circle, ArrowRight } from "lucide-react";
 
-const timelineSteps = [
-  { id: 1, title: "Referral received", status: "completed", date: "Apr 1, 2026" },
-  { id: 2, title: "Scheduling", status: "completed", date: "Apr 2, 2026" },
-  { id: 3, title: "Appointment scheduled", status: "completed", date: "Apr 3, 2026" },
-  { id: 4, title: "Authorization sent", status: "completed", date: "Apr 3, 2026" },
-  { id: 5, title: "Appointment attended", status: "completed", date: "Apr 15, 2026" },
-  { id: 6, title: "Results pending", status: "completed", date: "Apr 16, 2026" },
-  { id: 7, title: "Results received", status: "completed", date: "Apr 20, 2026" },
-  { id: 8, title: "Under SME medical review", status: "completed", date: "Apr 25, 2026" },
-  { id: 9, title: "RDQA required", status: "current", date: "May 1, 2026" },
-  { id: 10, title: "Additional info requested", status: "pending", date: "Pending" },
-  { id: 11, title: "Additional info submitted", status: "pending", date: "Pending" },
-  { id: 12, title: "Final recommendation", status: "pending", date: "Pending" },
-  { id: 13, title: "Cleared / Accommodation / Waiver Required", status: "pending", date: "Pending" }
+const EVENTS = [
+  { id:1,  label:"Referral Received",              date:"Apr 10, 2026", state:"done"    },
+  { id:2,  label:"Scheduling in Progress",         date:"Apr 11, 2026", state:"done"    },
+  { id:3,  label:"Appointment Scheduled",          date:"Apr 13, 2026", state:"done"    },
+  { id:4,  label:"Authorization Sent",             date:"Apr 14, 2026", state:"done"    },
+  { id:5,  label:"Appointment Attended",           date:"Apr 15, 2026", state:"done"    },
+  { id:6,  label:"Results Pending",                date:"Apr 17, 2026", state:"done"    },
+  { id:7,  label:"Results Received",               date:"Apr 20, 2026", state:"done"    },
+  { id:8,  label:"Under SME Medical Review",       date:"Apr 23, 2026", state:"done"    },
+  { id:9,  label:"RDQA Required",                  date:"Apr 28, 2026", state:"active"  },
+  { id:10, label:"Additional Info Requested",      date:"Apr 28, 2026", state:"active"  },
+  { id:11, label:"Additional Info Submitted",      date:null,           state:"pending" },
+  { id:12, label:"Final Recommendation Pending",   date:null,           state:"pending" },
+  { id:13, label:"Cleared",                        date:null,           state:"pending" },
 ];
 
 export default function Timeline() {
+  const done   = EVENTS.filter(e=>e.state==="done").length;
+  const total  = EVENTS.length;
+  const pct    = Math.round((done/total)*100);
+
   return (
-    <div className="p-4 space-y-6 pb-20">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Case Timeline</h1>
-        <p className="text-muted-foreground text-sm">Track your medical readiness process.</p>
+    <div className="px-4 pt-4 pb-8 space-y-4">
+      <div className="pt-1">
+        <p className="text-label mb-0.5" style={{color:"rgba(147,197,253,0.6)"}}>Case Progress</p>
+        <h1 className="text-[32px] font-extrabold text-white tracking-tight leading-none">Timeline</h1>
       </div>
 
-      <div className="glass-card rounded-3xl p-6 relative">
-        <div className="absolute left-[39px] top-8 bottom-8 w-px bg-white/10"></div>
-        <div className="space-y-6">
-          {timelineSteps.map((step, i) => {
-            const isCompleted = step.status === "completed";
-            const isCurrent = step.status === "current";
-            const isPending = step.status === "pending";
+      {/* Progress card */}
+      <div className="glass-elevated glass-refract rounded-[24px] p-4 relative overflow-hidden"
+        style={{border:"1px solid rgba(59,130,246,0.20)"}}>
+        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full"
+          style={{background:"radial-gradient(circle,rgba(37,99,235,0.28) 0%,transparent 70%)",filter:"blur(24px)"}}/>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-label" style={{color:"rgba(147,197,253,0.65)"}}>Steps Completed</span>
+          <span className="text-[22px] font-black leading-none" style={{color:"rgb(147,197,253)"}}>{done}<span className="text-caption font-medium text-white/40">/{total}</span></span>
+        </div>
+        <div className="progress-track h-2 mb-2">
+          <div className="progress-fill" style={{width:`${pct}%`,height:"100%"}}/>
+        </div>
+        <p className="text-caption" style={{color:"rgba(255,255,255,0.35)"}}>{pct}% of case milestones reached</p>
+      </div>
 
-            return (
-              <motion.div 
-                key={step.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="flex items-start gap-4 relative z-10"
-              >
-                <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 border-2 ${
-                  isCompleted ? 'bg-primary border-primary text-primary-foreground' :
-                  isCurrent ? 'bg-primary/20 border-primary text-primary glow-blue animate-pulse' :
-                  'bg-black/50 border-white/20 text-white/30'
-                }`}>
-                  {isCompleted ? <CheckCircle2 className="w-4 h-4" /> :
-                   isCurrent ? <Circle className="w-3 h-3 fill-current" /> :
-                   <Circle className="w-3 h-3" />}
+      {/* Timeline */}
+      <div className="relative">
+        {/* Vertical line */}
+        <div className="absolute left-5 top-0 bottom-0 w-px" style={{background:"linear-gradient(180deg,rgba(59,130,246,0.40) 0%,rgba(255,255,255,0.06) 80%)"}}/>
+
+        <div className="space-y-0">
+          {EVENTS.map((ev,i)=>(
+            <motion.div key={ev.id}
+              initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}}
+              transition={{delay:i*0.04,duration:0.4,ease:[0.16,1,0.3,1]}}
+              className="flex gap-4 relative py-2.5"
+            >
+              {/* Dot */}
+              <div className="flex-shrink-0 w-10 flex items-start justify-center pt-0.5">
+                <div className={`timeline-dot ${
+                  ev.state==="done"?"timeline-dot-done":
+                  ev.state==="active"?"timeline-dot-active":
+                  "timeline-dot-pending"
+                }`}/>
+              </div>
+
+              {/* Content */}
+              <div className={`flex-1 min-w-0 pb-2 ${i<EVENTS.length-1?"border-b":""}  border-white/[0.05]`}>
+                <div className="flex items-center justify-between gap-2">
+                  <p className={`text-[13.5px] font-semibold leading-tight ${
+                    ev.state==="pending"?"text-white/35":
+                    ev.state==="active"?"text-blue-300":"text-white/80"
+                  }`}>{ev.label}</p>
+                  {ev.state==="active" && (
+                    <span className="badge badge-urgent" style={{fontSize:8}}>Active</span>
+                  )}
                 </div>
-                <div>
-                  <h3 className={`text-sm font-medium ${isCompleted || isCurrent ? 'text-white' : 'text-white/40'}`}>
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-white/50 mt-1">{step.date}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+                {ev.date && (
+                  <p className="text-caption mt-0.5" style={{color:"rgba(255,255,255,0.30)"}}>{ev.date}</p>
+                )}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
