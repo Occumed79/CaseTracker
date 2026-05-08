@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default function Login() {
   const { login } = useAuth();
@@ -15,53 +12,122 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[100dvh] aurora-bg flex flex-col items-center justify-center p-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+    <div className="min-h-[100dvh] aurora-bg flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      {/* Ambient orbs */}
+      <div className="orb orb-blue" style={{ width:400, height:400, top:"-120px", left:"-120px", opacity:0.65 }} />
+      <div className="orb orb-indigo" style={{ width:300, height:300, bottom:"-80px", right:"-80px", opacity:0.55 }} />
+
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-sm relative z-10"
       >
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
-        
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center p-1.5 glow-blue border border-white/20">
-            <img src="/occu-med-logo.png" alt="Logo" className="w-full h-full object-contain" />
+        {/* Header branding */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="flex flex-col items-center mb-8"
+        >
+          <div
+            className="w-20 h-20 rounded-3xl flex items-center justify-center mb-4 glow-blue"
+            style={{
+              background: "rgba(255,255,255,0.09)",
+              border: "1.5px solid rgba(59,130,246,0.4)",
+              padding: "14px",
+            }}
+          >
+            <img src="/occu-med-logo.png" alt="Occu-Med" className="w-full h-full object-contain" />
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-white tracking-tight">CaseTrack</h1>
-            <p className="text-xs text-muted-foreground">Applicant Portal</p>
-          </div>
-        </div>
+          <h1 className="text-2xl font-bold text-white tracking-tight text-glow-white">CaseTrack</h1>
+          <p className="text-xs tracking-[0.18em] uppercase mt-1" style={{ color: "rgba(147,197,253,0.75)" }}>
+            Applicant Portal
+          </p>
+        </motion.div>
 
-        <form onSubmit={handleApplicantLogin} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="inviteCode" className="text-white/80">Invitation Code</Label>
-            <Input 
-              id="inviteCode" 
-              placeholder="e.g. OM-ABCD-1234" 
-              value={inviteCode}
-              onChange={(e) => setInviteCode(e.target.value)}
-              className="bg-black/20 border-white/10 text-white placeholder:text-white/30 h-12 rounded-xl focus:border-primary focus:ring-primary"
-            />
-            <p className="text-xs text-white/50">Enter the code provided by your recruiter or HR contact.</p>
-          </div>
-          
-          <Button type="submit" className="w-full h-12 rounded-xl shimmer-btn bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base glow-blue">
-            Access My Case
-          </Button>
-        </form>
+        {/* Glass card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.25, duration: 0.6 }}
+          className="glass-card-elevated glass-reflection rounded-3xl p-6"
+        >
+          <form onSubmit={handleApplicantLogin} className="space-y-5">
+            <div className="space-y-2">
+              <label className="text-xs font-semibold tracking-wider uppercase" style={{ color: "rgba(147,197,253,0.8)" }}>
+                Invitation Code
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. OM-ABCD-1234"
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+                className="glass-input w-full h-12 rounded-2xl px-4 text-sm font-medium"
+              />
+              <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Enter the code provided by your recruiter or HR contact.
+              </p>
+            </div>
 
-        <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
-          <p className="text-xs text-center text-white/50 uppercase tracking-wider font-semibold">Demo Access</p>
+            <button
+              type="submit"
+              className="shimmer-btn w-full h-12 rounded-2xl font-bold text-sm tracking-wide glow-blue"
+              style={{
+                background: "linear-gradient(135deg, hsl(217,100%,55%) 0%, hsl(210,100%,62%) 100%)",
+                color: "hsl(222,47%,5%)",
+                border: "1px solid rgba(59,130,246,0.4)",
+              }}
+            >
+              Access My Case
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-5">
+            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+            <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.28)" }}>
+              Demo Access
+            </span>
+            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" onClick={() => login("applicant")} className="bg-white/5 border-white/10 hover:bg-white/10 hover:text-white h-10">
-              Demo Applicant
-            </Button>
-            <Button variant="outline" onClick={() => login("admin")} className="bg-white/5 border-white/10 hover:bg-white/10 hover:text-white h-10">
-              Demo Admin
-            </Button>
+            <button
+              onClick={() => login("applicant")}
+              className="card-lift h-10 rounded-2xl text-xs font-semibold transition-all"
+              style={{
+                background: "rgba(59,130,246,0.12)",
+                border: "1px solid rgba(59,130,246,0.25)",
+                color: "rgb(147,197,253)",
+              }}
+            >
+              👤 Applicant
+            </button>
+            <button
+              onClick={() => login("admin")}
+              className="card-lift h-10 rounded-2xl text-xs font-semibold transition-all"
+              style={{
+                background: "rgba(139,92,246,0.12)",
+                border: "1px solid rgba(139,92,246,0.25)",
+                color: "rgb(196,181,253)",
+              }}
+            >
+              🛡 Admin
+            </button>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Footer note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="text-center text-[10px] mt-6"
+          style={{ color: "rgba(255,255,255,0.22)" }}
+        >
+          Secure · HIPAA-Aware · End-to-End Encrypted
+        </motion.p>
       </motion.div>
     </div>
   );

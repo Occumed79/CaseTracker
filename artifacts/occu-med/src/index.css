@@ -10,41 +10,32 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-card-border: hsl(var(--card-border));
-
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-popover-border: hsl(var(--popover-border));
-
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-primary-border: var(--primary-border);
-
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-secondary-border: var(--secondary-border);
-
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-muted-border: var(--muted-border);
-
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-accent-border: var(--accent-border);
-
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-destructive-border: var(--destructive-border);
-
   --color-chart-1: hsl(var(--chart-1));
   --color-chart-2: hsl(var(--chart-2));
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
-
   --color-sidebar: hsl(var(--sidebar));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
@@ -55,361 +46,280 @@
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-accent-border: var(--sidebar-accent-border);
   --color-sidebar-ring: hsl(var(--sidebar-ring));
-
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
   --font-mono: var(--app-font-mono);
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
+  --button-outline: rgba(255,255,255,.12);
+  --badge-outline: rgba(255,255,255,.07);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255,255,255,.04);
+  --elevate-2: rgba(255,255,255,.09);
 
-  /* Automatic computation of border around primary / danger buttons */
-  --opaque-button-border-intensity: -8; /* In terms of percentages */
-
-  /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
-
-  --background: 224 71% 4%;
-  --foreground: 210 40% 98%;
-
-  --border: 224 20% 18%;
-
-  --card: 224 45% 8%;
-  --card-foreground: 210 40% 98%;
-  --card-border: 224 20% 18%;
-
-  --sidebar: 224 45% 6%;
-  --sidebar-foreground: 210 40% 98%;
-  --sidebar-border: 224 20% 18%;
-  --sidebar-primary: 217 91% 60%;
-  --sidebar-primary-foreground: 224 71% 4%;
-  --sidebar-accent: 224 32% 14%;
-  --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-ring: 217 91% 60%;
-
-  --popover: 224 45% 8%;
-  --popover-foreground: 210 40% 98%;
-  --popover-border: 224 20% 18%;
-
-  --primary: 217 91% 60%;
-  --primary-foreground: 224 71% 4%;
-
-  --secondary: 224 32% 14%;
-  --secondary-foreground: 210 40% 98%;
-
-  --muted: 224 32% 14%;
-  --muted-foreground: 215 20% 55%;
-
-  --accent: 217 91% 60%;
-  --accent-foreground: 210 40% 98%;
-
+  --background: 222 47% 5%;
+  --foreground: 210 60% 98%;
+  --border: 220 30% 18%;
+  --card: 222 40% 8%;
+  --card-foreground: 210 60% 98%;
+  --card-border: 220 30% 20%;
+  --sidebar: 222 45% 6%;
+  --sidebar-foreground: 210 60% 98%;
+  --sidebar-border: 220 30% 16%;
+  --sidebar-primary: 217 100% 63%;
+  --sidebar-primary-foreground: 222 47% 5%;
+  --sidebar-accent: 222 35% 14%;
+  --sidebar-accent-foreground: 210 60% 98%;
+  --sidebar-ring: 217 100% 63%;
+  --popover: 222 40% 8%;
+  --popover-foreground: 210 60% 98%;
+  --popover-border: 220 30% 20%;
+  --primary: 217 100% 63%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 222 35% 14%;
+  --secondary-foreground: 210 60% 98%;
+  --muted: 222 35% 14%;
+  --muted-foreground: 215 25% 52%;
+  --accent: 217 100% 63%;
+  --accent-foreground: 210 60% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
-
-  --input: 224 20% 18%;
-  --ring: 217 91% 60%;
-  --chart-1: 217 91% 60%;
-  --chart-2: 210 100% 50%;
-  --chart-3: 200 100% 50%;
-  --chart-4: 190 100% 50%;
-  --chart-5: 180 100% 50%;
-
-  --app-font-sans: 'Inter', sans-serif;
+  --input: 220 30% 20%;
+  --ring: 217 100% 63%;
+  --chart-1: 217 100% 63%;
+  --chart-2: 200 100% 56%;
+  --chart-3: 180 100% 52%;
+  --chart-4: 262 83% 65%;
+  --chart-5: 152 76% 50%;
+  --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
-  --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00); /*replace with H S L */
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00); /*replace with H S L */
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
-
-  /* Automatically computed borders - intensity can be controlled by the user by the --opaque-button-border-intensity setting */
-
-  /* Fallback for older browsers */
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-}
-
-.dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-
-  --opaque-button-border-intensity: 9;  /* In terms of percentages */
-
-  /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
-
-  --background: red; /*replace with H S L */
-
-  --foreground: red; /*replace with H S L */
-
-  --border: red; /*replace with H S L */
-
-  --card: red; /*replace with H S L */
-
-  --card-foreground: red; /*replace with H S L */
-
-  --card-border: red; /*replace with H S L */
-
-  --sidebar: red; /*replace with H S L */
-
-  --sidebar-foreground: red; /*replace with H S L */
-
-  --sidebar-border: red; /*replace with H S L */
-
-  --sidebar-primary: red; /*replace with H S L */
-
-  --sidebar-primary-foreground: red; /*replace with H S L */
-
-  --sidebar-accent: red; /*replace with H S L */
-
-  --sidebar-accent-foreground: red; /*replace with H S L */
-
-  --sidebar-ring: red; /*replace with H S L */
-
-  --popover: red; /*replace with H S L */
-
-  --popover-foreground: red; /*replace with H S L */
-
-  --popover-border: red; /*replace with H S L */
-
-  --primary: red; /*replace with H S L */
-
-  --primary-foreground: red; /*replace with H S L */
-
-  --secondary: red; /*replace with H S L */
-
-  --secondary-foreground: red; /*replace with H S L */
-
-  --muted: red; /*replace with H S L */
-
-  --muted-foreground: red; /*replace with H S L */
-
-  --accent: red; /*replace with H S L */
-
-  --accent-foreground: red; /*replace with H S L */
-
-  --destructive: red; /*replace with H S L */
-
-  --destructive-foreground: red; /*replace with H S L */
-
-  /* Used as the border around inputs. Dark mode: Should be a border that is light enough to have high contrast when rendered on a --card background. More contrast than standard --border */
-  --input: red; /*replace with H S L */
-  --ring: red; /*replace with H S L */
-  --chart-1: red; /*replace with H S L */
-  --chart-2: red; /*replace with H S L */
-  --chart-3: red; /*replace with H S L */
-  --chart-4: red; /*replace with H S L */
-  --chart-5: red; /*replace with H S L */
-
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-
+  --app-font-mono: 'SF Mono', Menlo, monospace;
+  --radius: 0.75rem;
+  --primary-border: hsl(217 100% 55%);
+  --secondary-border: hsl(222 35% 20%);
+  --muted-border: hsl(222 35% 20%);
+  --accent-border: hsl(217 100% 55%);
+  --destructive-border: hsl(0 84% 52%);
+  --sidebar-primary-border: hsl(217 100% 55%);
+  --sidebar-accent-border: hsl(222 35% 20%);
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply font-sans antialiased bg-background text-foreground;
-  }
+  * { box-sizing: border-box; @apply border-border; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { @apply font-sans antialiased bg-background text-foreground; background-color: hsl(222,47%,5%); letter-spacing: -0.01em; }
 }
 
-/**
- * Using the elevate system.
- * Automatic contrast adjustment.
- *
- * <element className="hover-elevate" />
- * <element className="active-elevate-2" />
- *
- * // Using the tailwind utility when a data attribute is "on"
- * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
- * // Or manually controlling the toggle state
- * <element className="toggle-elevate toggle-elevated" />
- *
- * Elevation systems have to handle many states.
- * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
- * - toggled or not
- * - focused or not (this is not handled with these utilities)
- *
- * Even without handling focused or not, this is six possible combinations that
- * need to be distinguished from eachother visually.
- */
-@layer utilities {
-
-  .glass-card {
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-  .glow-blue {
-    box-shadow: 0 0 20px rgba(37,99,235,0.4), 0 0 40px rgba(37,99,235,0.1);
-  }
-  .glow-green {
-    box-shadow: 0 0 12px rgba(34,197,94,0.4);
-  }
-  .glow-red {
-    box-shadow: 0 0 12px rgba(239,68,68,0.4);
-  }
-  .shimmer-btn {
-    position: relative;
-    overflow: hidden;
-  }
-  .shimmer-btn::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    animation: shimmer 2s infinite;
-  }
-  @keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 200%; }
-  }
-  .aurora-bg {
-    background: radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(29,78,216,0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(59,130,246,0.08) 0%, transparent 50%),
-                hsl(224, 71%, 4%);
-    min-height: 100vh;
-  }
-
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
-  input[type="search"]::-webkit-search-cancel-button {
-    @apply hidden;
-  }
-
-  /* Placeholder styling for contentEditable div */
-  [contenteditable][data-placeholder]:empty::before {
-    content: attr(data-placeholder);
-    color: hsl(var(--muted-foreground));
-    pointer-events: none;
-  }
-
-  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
-   * buttons/badges can remove the automatic brightness adjustment on interactions
-   * and program their own. */
-  .no-default-hover-elevate {}
-
-  .no-default-active-elevate {}
-
-
-  /**
-   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
-   * This way they can stack/compound. Both will overlap the parent's borders!
-   * So borders will be automatically adjusted both on toggle, and hover/active,
-   * and they will be compounded.
-   */
-  .toggle-elevate::before,
-  .toggle-elevate-2::before {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
-    border-radius: inherit;
-    z-index: -1;
-    /* sits behind content but above backdrop */
-  }
-
-  .toggle-elevate.toggle-elevated::before {
-    background-color: var(--elevate-2);
-  }
-
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
-    inset: -1px;
-  }
-
-  /* Does not work on elements with overflow:hidden! */
-  .hover-elevate:not(.no-default-hover-elevate),
-  .active-elevate:not(.no-default-active-elevate),
-  .hover-elevate-2:not(.no-default-hover-elevate),
-  .active-elevate-2:not(.no-default-active-elevate) {
-    position: relative;
-    z-index: 0;
-  }
-
-  .hover-elevate:not(.no-default-hover-elevate)::after,
-  .active-elevate:not(.no-default-active-elevate)::after,
-  .hover-elevate-2:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:not(.no-default-active-elevate)::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
-    border-radius: inherit;
-    z-index: 999;
-    /* sits in front of content */
-  }
-
-  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
-  }
-
-  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
-  }
-
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
-    inset: -1px;
-  }
+/* === AURORA ANIMATED BACKGROUND === */
+.aurora-bg {
+  position: relative;
+  background-color: hsl(222,47%,5%);
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
+.aurora-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(37,99,235,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(29,78,216,0.20) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(59,130,246,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 75% 55%, rgba(99,102,241,0.12) 0%, transparent 50%);
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { opacity:1; transform:scale(1) translate(0,0); }
+  33%  { opacity:0.85; transform:scale(1.04) translate(-1%,1.5%); }
+  66%  { opacity:0.92; transform:scale(0.97) translate(1.5%,-1%); }
+  100% { opacity:1; transform:scale(1.02) translate(-0.5%,0.5%); }
+}
+
+/* === LIQUID GLASS CARDS === */
+.glass-card {
+  background: rgba(255,255,255,0.055);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.2) inset;
+}
+.glass-card-elevated {
+  background: rgba(255,255,255,0.075);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.25) inset;
+}
+.glass-card-deep {
+  background: rgba(10,15,35,0.80);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 16px 60px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.06) inset;
+}
+
+/* === GLOW EFFECTS === */
+.glow-blue {
+  box-shadow: 0 0 16px rgba(59,130,246,0.55), 0 0 40px rgba(37,99,235,0.25), 0 0 80px rgba(37,99,235,0.10);
+}
+.glow-blue-sm {
+  box-shadow: 0 0 8px rgba(59,130,246,0.45), 0 0 20px rgba(37,99,235,0.20);
+}
+.glow-blue-border {
+  border-color: rgba(59,130,246,0.6) !important;
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 0 20px rgba(59,130,246,0.25), 0 0 40px rgba(37,99,235,0.12);
+}
+.glow-green { box-shadow: 0 0 12px rgba(34,197,94,0.5), 0 0 30px rgba(34,197,94,0.2); }
+.glow-amber { box-shadow: 0 0 12px rgba(245,158,11,0.5), 0 0 30px rgba(245,158,11,0.2); }
+.glow-red   { box-shadow: 0 0 12px rgba(239,68,68,0.5),  0 0 30px rgba(239,68,68,0.2);  }
+.glow-purple{ box-shadow: 0 0 12px rgba(139,92,246,0.5), 0 0 30px rgba(139,92,246,0.2); }
+
+/* === SHIMMER BUTTON === */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.shimmer-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+  background-size: 200% 200%;
+  animation: shimmer-sweep 2.5s ease-in-out infinite;
+}
+.shimmer-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(59,130,246,0.6), 0 0 50px rgba(37,99,235,0.3), 0 8px 24px rgba(0,0,0,0.4);
+}
+.shimmer-btn:active { transform: translateY(0) scale(0.98); }
+@keyframes shimmer-sweep {
+  0%   { background-position: -200% -200%; }
+  50%  { background-position: 200% 200%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* === LUMINOUS STATUS BADGES === */
+.badge-complete  { background:rgba(34,197,94,0.18);  border:1px solid rgba(34,197,94,0.4);  color:rgb(134,239,172); box-shadow:0 0 10px rgba(34,197,94,0.2);  text-shadow:0 0 8px rgba(34,197,94,0.5);  }
+.badge-pending   { background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.4); color:rgb(147,197,253); box-shadow:0 0 10px rgba(59,130,246,0.2); text-shadow:0 0 8px rgba(59,130,246,0.5); }
+.badge-missing   { background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.4); color:rgb(253,230,138); box-shadow:0 0 10px rgba(245,158,11,0.2); text-shadow:0 0 8px rgba(245,158,11,0.5); }
+.badge-urgent    { background:rgba(239,68,68,0.18);  border:1px solid rgba(239,68,68,0.4);  color:rgb(252,165,165); box-shadow:0 0 10px rgba(239,68,68,0.2);  text-shadow:0 0 8px rgba(239,68,68,0.5);  }
+.badge-correction{ background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.4); color:rgb(196,181,253); box-shadow:0 0 10px rgba(139,92,246,0.2); text-shadow:0 0 8px rgba(139,92,246,0.5); }
+
+/* === GLASS REFLECTION === */
+.glass-reflection { position:relative; overflow:hidden; }
+.glass-reflection::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.07) 0%,transparent 100%);
+  pointer-events:none; border-radius:inherit;
+}
+
+/* === PULSE DOTS === */
+.pulse-blue  { animation:pulse-blue-anim  2s ease-in-out infinite; }
+.pulse-amber { animation:pulse-amber-anim 2s ease-in-out infinite; }
+.pulse-red   { animation:pulse-red-anim   1.5s ease-in-out infinite; }
+@keyframes pulse-blue-anim  { 0%,100%{box-shadow:0 0 4px rgba(59,130,246,0.7),0 0 10px rgba(59,130,246,0.4);opacity:1} 50%{box-shadow:0 0 8px rgba(59,130,246,1),0 0 20px rgba(59,130,246,0.6);opacity:0.8} }
+@keyframes pulse-amber-anim { 0%,100%{box-shadow:0 0 4px rgba(245,158,11,0.7),0 0 10px rgba(245,158,11,0.4);opacity:1} 50%{box-shadow:0 0 8px rgba(245,158,11,1),0 0 20px rgba(245,158,11,0.6);opacity:0.8} }
+@keyframes pulse-red-anim   { 0%,100%{box-shadow:0 0 4px rgba(239,68,68,0.7),0 0 10px rgba(239,68,68,0.4);opacity:1}  50%{box-shadow:0 0 8px rgba(239,68,68,1),0 0 20px rgba(239,68,68,0.6);opacity:0.8} }
+
+/* === PROGRESS BAR === */
+.progress-glow {
+  background:linear-gradient(90deg,hsl(217,100%,63%) 0%,hsl(200,100%,70%) 100%);
+  box-shadow:0 0 12px rgba(59,130,246,0.6),0 0 24px rgba(37,99,235,0.3);
+  border-radius:999px;
+  transition:width 1s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* === GLASS INPUTS === */
+.glass-input {
+  background:rgba(255,255,255,0.05) !important;
+  border:1px solid rgba(255,255,255,0.12) !important;
+  color:white !important;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.glass-input:focus {
+  border-color:rgba(59,130,246,0.6) !important;
+  box-shadow:0 0 0 3px rgba(59,130,246,0.15),0 0 16px rgba(59,130,246,0.2) !important;
+  outline:none;
+}
+.glass-input::placeholder { color:rgba(255,255,255,0.28) !important; }
+
+/* === BOTTOM NAV === */
+.bottom-nav {
+  background:rgba(8,12,28,0.88);
+  backdrop-filter:blur(32px) saturate(200%);
+  -webkit-backdrop-filter:blur(32px) saturate(200%);
+  border-top:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 -8px 32px rgba(0,0,0,0.5),0 -1px 0 rgba(255,255,255,0.04) inset;
+}
+.nav-item-active { color:hsl(217,100%,70%); text-shadow:0 0 12px rgba(59,130,246,0.6); }
+
+/* === HEADER === */
+.app-header {
+  background:rgba(8,12,28,0.82);
+  backdrop-filter:blur(40px) saturate(200%);
+  -webkit-backdrop-filter:blur(40px) saturate(200%);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  box-shadow:0 4px 24px rgba(0,0,0,0.4),0 1px 0 rgba(255,255,255,0.04) inset;
+}
+
+/* === TEXT GLOW === */
+.text-glow-blue  { text-shadow:0 0 20px rgba(59,130,246,0.6),0 0 40px rgba(37,99,235,0.3); }
+.text-glow-white { text-shadow:0 0 20px rgba(255,255,255,0.4),0 0 40px rgba(255,255,255,0.15); }
+
+/* === CARD LIFT === */
+.card-lift { transition:transform 0.2s ease,box-shadow 0.2s ease; }
+.card-lift:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.10) inset; }
+.card-lift:active { transform:translateY(0) scale(0.99); }
+
+/* === TIMELINE DOTS === */
+.timeline-dot-active { background:hsl(217,100%,63%); box-shadow:0 0 0 4px rgba(59,130,246,0.25),0 0 12px rgba(59,130,246,0.5); }
+.timeline-dot-done   { background:hsl(152,76%,50%); box-shadow:0 0 0 4px rgba(34,197,94,0.2); }
+.timeline-dot-pending{ background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.2); }
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(59,130,246,0.3); border-radius:999px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(59,130,246,0.5); }
+
+/* === MISC === */
+input[type="search"]::-webkit-search-cancel-button { display:none; }
+[contenteditable][data-placeholder]:empty::before { content:attr(data-placeholder); color:hsl(var(--muted-foreground)); pointer-events:none; }
+.no-default-hover-elevate {}
+.no-default-active-elevate {}
+
+.toggle-elevate::before,.toggle-elevate-2::before {
+  content:""; pointer-events:none; position:absolute; inset:0; border-radius:inherit; z-index:-1;
+}
+.toggle-elevate.toggle-elevated::before { background-color:var(--elevate-2); }
+.border.toggle-elevate::before { inset:-1px; }
+
+.hover-elevate:not(.no-default-hover-elevate),
+.active-elevate:not(.no-default-active-elevate),
+.hover-elevate-2:not(.no-default-hover-elevate),
+.active-elevate-2:not(.no-default-active-elevate) { position:relative; z-index:0; }
+
+.hover-elevate:not(.no-default-hover-elevate)::after,
+.active-elevate:not(.no-default-active-elevate)::after,
+.hover-elevate-2:not(.no-default-hover-elevate)::after,
+.active-elevate-2:not(.no-default-active-elevate)::after {
+  content:""; pointer-events:none; position:absolute; inset:0; border-radius:inherit; z-index:999;
+}
+.hover-elevate:hover:not(.no-default-hover-elevate)::after,
+.active-elevate:active:not(.no-default-active-elevate)::after { background-color:var(--elevate-1); }
+.hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+.active-elevate-2:active:not(.no-default-active-elevate)::after { background-color:var(--elevate-2); }
+.border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+.border.active-elevate:not(.no-active-interaction-elevate)::after,
+.border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+.border.active-elevate-2:not(.no-active-interaction-elevate)::after { inset:-1px; }
