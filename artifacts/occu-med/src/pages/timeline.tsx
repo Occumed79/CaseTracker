@@ -1,83 +1,268 @@
 import { motion } from "framer-motion";
+import { Link } from "wouter";
+import { ChevronLeft, UploadCloud } from "lucide-react";
 
+/**
+ * Lawfully-style case history timeline.
+ * Each step has a short plain-English description so applicants understand what happened / what's next.
+ */
 const EVENTS = [
-  { id:1,  label:"Referral Received",              date:"Apr 10, 2026", state:"done"    },
-  { id:2,  label:"Scheduling in Progress",         date:"Apr 11, 2026", state:"done"    },
-  { id:3,  label:"Appointment Scheduled",          date:"Apr 13, 2026", state:"done"    },
-  { id:4,  label:"Authorization Sent",             date:"Apr 14, 2026", state:"done"    },
-  { id:5,  label:"Appointment Attended",           date:"Apr 15, 2026", state:"done"    },
-  { id:6,  label:"Results Pending",                date:"Apr 17, 2026", state:"done"    },
-  { id:7,  label:"Results Received",               date:"Apr 20, 2026", state:"done"    },
-  { id:8,  label:"Under SME Medical Review",       date:"Apr 23, 2026", state:"done"    },
-  { id:9,  label:"RDQA Required",                  date:"Apr 28, 2026", state:"active"  },
-  { id:10, label:"Additional Info Requested",      date:"Apr 28, 2026", state:"active"  },
-  { id:11, label:"Additional Info Submitted",      date:null,           state:"pending" },
-  { id:12, label:"Final Recommendation Pending",   date:null,           state:"pending" },
-  { id:13, label:"Cleared",                        date:null,           state:"pending" },
+  {
+    id: 1,
+    label: "Referral Received",
+    date: "Apr 10, 2026",
+    state: "done" as const,
+    desc: "Your employer submitted a medical readiness referral to Occu-Med.",
+  },
+  {
+    id: 2,
+    label: "Scheduling in Progress",
+    date: "Apr 11, 2026",
+    state: "done" as const,
+    desc: "Clinic options were reviewed and an appointment window was coordinated.",
+  },
+  {
+    id: 3,
+    label: "Appointment Scheduled",
+    date: "Apr 13, 2026",
+    state: "done" as const,
+    desc: "Your occupational health exam was scheduled at a preferred clinic.",
+  },
+  {
+    id: 4,
+    label: "Authorization Sent",
+    date: "Apr 14, 2026",
+    state: "done" as const,
+    desc: "Authorization packet was sent to the clinic and to you.",
+  },
+  {
+    id: 5,
+    label: "Appointment Attended",
+    date: "Apr 15, 2026",
+    state: "done" as const,
+    desc: "Physical exam and baseline testing were completed.",
+  },
+  {
+    id: 6,
+    label: "Results Pending",
+    date: "Apr 17, 2026",
+    state: "done" as const,
+    desc: "Lab and clinic results were awaiting return to Occu-Med.",
+  },
+  {
+    id: 7,
+    label: "Results Received",
+    date: "Apr 20, 2026",
+    state: "done" as const,
+    desc: "Clinic results arrived and were entered into your case file.",
+  },
+  {
+    id: 8,
+    label: "Under SME Medical Review",
+    date: "Apr 23, 2026",
+    state: "done" as const,
+    desc: "A medical reviewer evaluated your findings against job requirements.",
+  },
+  {
+    id: 9,
+    label: "RDQA Required",
+    date: "Apr 28, 2026",
+    state: "active" as const,
+    desc: "Additional information is needed (cardiology clearance and blood pressure log). This is a common next step when findings require clarification.",
+  },
+  {
+    id: 10,
+    label: "Additional Info Requested",
+    date: "Apr 28, 2026",
+    state: "active" as const,
+    desc: "You were asked to upload specific documents. Deadline is in 12 days.",
+  },
+  {
+    id: 11,
+    label: "Additional Info Submitted",
+    date: null,
+    state: "pending" as const,
+    desc: "After you upload the requested records, this step will complete.",
+  },
+  {
+    id: 12,
+    label: "Final Recommendation Pending",
+    date: null,
+    state: "pending" as const,
+    desc: "Once documents are reviewed, Occu-Med will issue a clearance recommendation.",
+  },
+  {
+    id: 13,
+    label: "Cleared / Determination",
+    date: null,
+    state: "pending" as const,
+    desc: "Final medical readiness determination (cleared, accommodation, or waiver path).",
+  },
 ];
 
 export default function Timeline() {
-  const done   = EVENTS.filter(e=>e.state==="done").length;
-  const total  = EVENTS.length;
-  const pct    = Math.round((done/total)*100);
+  const done = EVENTS.filter((e) => e.state === "done").length;
+  const total = EVENTS.length;
+  const pct = Math.round((done / total) * 100);
+  const active = EVENTS.find((e) => e.state === "active");
 
   return (
-    <div className="px-4 pt-4 pb-8 space-y-4">
+    <div className="px-4 pt-4 pb-8 space-y-5">
+      {/* Header */}
       <div className="pt-1">
-        <p className="text-label mb-0.5" style={{color:"rgba(147,197,253,0.6)"}}>Case Progress</p>
-        <h1 className="text-[32px] font-extrabold text-white tracking-tight leading-none">Timeline</h1>
+        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
+          Case OM-2026-0148
+        </p>
+        <h1 className="text-[26px] font-bold text-white tracking-tight leading-none">Case History</h1>
+        <p className="text-[13px] mt-1.5" style={{ color: "rgba(255,255,255,0.42)" }}>
+          Every status update on your medical readiness case, in order.
+        </p>
       </div>
 
-      {/* Progress card */}
-      <div className="glass-elevated glass-refract rounded-[24px] p-4 relative overflow-hidden"
-        style={{border:"1px solid rgba(59,130,246,0.20)"}}>
-        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full"
-          style={{background:"radial-gradient(circle,rgba(37,99,235,0.28) 0%,transparent 70%)",filter:"blur(24px)"}}/>
+      {/* Progress summary */}
+      <div
+        className="rounded-[18px] p-4"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.09)",
+        }}
+      >
         <div className="flex justify-between items-center mb-2">
-          <span className="text-label" style={{color:"rgba(147,197,253,0.65)"}}>Steps Completed</span>
-          <span className="text-[22px] font-black leading-none" style={{color:"rgb(147,197,253)"}}>{done}<span className="text-caption font-medium text-white/40">/{total}</span></span>
+          <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
+            Steps completed
+          </span>
+          <span className="text-[18px] font-bold" style={{ color: "rgb(147,197,253)" }}>
+            {done}
+            <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>/{total}</span>
+          </span>
         </div>
-        <div className="progress-track h-2 mb-2">
-          <div className="progress-fill" style={{width:`${pct}%`,height:"100%"}}/>
+        <div className="progress-track h-1.5 mb-2">
+          <div className="progress-fill" style={{ width: `${pct}%`, height: "100%" }} />
         </div>
-        <p className="text-caption" style={{color:"rgba(255,255,255,0.35)"}}>{pct}% of case milestones reached</p>
+        <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.38)" }}>
+          {pct}% of case milestones reached
+        </p>
       </div>
 
-      {/* Timeline */}
+      {/* Current status callout */}
+      {active && (
+        <div
+          className="rounded-[16px] p-4"
+          style={{
+            background: "rgba(245,158,11,0.08)",
+            border: "1px solid rgba(245,158,11,0.25)",
+          }}
+        >
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="dot dot-amber" style={{ width: 7, height: 7 }} />
+            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(252,211,77,0.85)" }}>
+              Current step
+            </span>
+          </div>
+          <p className="text-[15px] font-semibold text-white">{active.label}</p>
+          <p className="text-[12px] mt-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+            {active.desc}
+          </p>
+          <Link
+            href="/uploads"
+            className="mt-3 inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-[12px] font-semibold"
+            style={{
+              background: "rgba(59,130,246,0.18)",
+              border: "1px solid rgba(59,130,246,0.32)",
+              color: "rgb(147,197,253)",
+            }}
+          >
+            <UploadCloud style={{ width: 13, height: 13 }} />
+            Upload documents
+          </Link>
+        </div>
+      )}
+
+      {/* Full vertical timeline */}
       <div className="relative">
-        {/* Vertical line */}
-        <div className="absolute left-5 top-0 bottom-0 w-px" style={{background:"linear-gradient(180deg,rgba(59,130,246,0.40) 0%,rgba(255,255,255,0.06) 80%)"}}/>
+        <div
+          className="absolute left-[15px] top-3 bottom-3 w-px"
+          style={{
+            background: "linear-gradient(180deg, rgba(16,185,129,0.45) 0%, rgba(59,130,246,0.35) 40%, rgba(255,255,255,0.06) 85%)",
+          }}
+        />
 
         <div className="space-y-0">
-          {EVENTS.map((ev,i)=>(
-            <motion.div key={ev.id}
-              initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}}
-              transition={{delay:i*0.04,duration:0.4,ease:[0.16,1,0.3,1]}}
-              className="flex gap-4 relative py-2.5"
+          {EVENTS.map((ev, i) => (
+            <motion.div
+              key={ev.id}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.03, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="flex gap-3.5 relative py-3"
             >
               {/* Dot */}
-              <div className="flex-shrink-0 w-10 flex items-start justify-center pt-0.5">
-                <div className={`timeline-dot ${
-                  ev.state==="done"?"timeline-dot-done":
-                  ev.state==="active"?"timeline-dot-active":
-                  "timeline-dot-pending"
-                }`}/>
+              <div className="flex-shrink-0 w-8 flex items-start justify-center pt-0.5">
+                <div
+                  className={
+                    ev.state === "done"
+                      ? "timeline-dot timeline-dot-done"
+                      : ev.state === "active"
+                        ? "timeline-dot timeline-dot-active"
+                        : "timeline-dot timeline-dot-pending"
+                  }
+                />
               </div>
 
-              {/* Content */}
-              <div className={`flex-1 min-w-0 pb-2 ${i<EVENTS.length-1?"border-b":""}  border-white/[0.05]`}>
-                <div className="flex items-center justify-between gap-2">
-                  <p className={`text-[13.5px] font-semibold leading-tight ${
-                    ev.state==="pending"?"text-white/35":
-                    ev.state==="active"?"text-blue-300":"text-white/80"
-                  }`}>{ev.label}</p>
-                  {ev.state==="active" && (
-                    <span className="badge badge-urgent" style={{fontSize:8}}>Active</span>
+              {/* Content card */}
+              <div
+                className="flex-1 min-w-0 rounded-xl px-3.5 py-3"
+                style={{
+                  background:
+                    ev.state === "active"
+                      ? "rgba(59,130,246,0.08)"
+                      : ev.state === "done"
+                        ? "rgba(255,255,255,0.03)"
+                        : "transparent",
+                  border:
+                    ev.state === "active"
+                      ? "1px solid rgba(59,130,246,0.28)"
+                      : ev.state === "done"
+                        ? "1px solid rgba(255,255,255,0.06)"
+                        : "1px solid transparent",
+                }}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <p
+                    className="text-[13.5px] font-semibold leading-snug"
+                    style={{
+                      color:
+                        ev.state === "pending"
+                          ? "rgba(255,255,255,0.32)"
+                          : ev.state === "active"
+                            ? "rgb(147,197,253)"
+                            : "rgba(255,255,255,0.85)",
+                    }}
+                  >
+                    {ev.label}
+                  </p>
+                  {ev.state === "active" && (
+                    <span className="badge badge-urgent" style={{ fontSize: 8 }}>
+                      Active
+                    </span>
                   )}
                 </div>
                 {ev.date && (
-                  <p className="text-caption mt-0.5" style={{color:"rgba(255,255,255,0.30)"}}>{ev.date}</p>
+                  <p className="text-[11px] mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    {ev.date}
+                  </p>
                 )}
+                <p
+                  className="text-[12px] mt-1.5 leading-relaxed"
+                  style={{
+                    color:
+                      ev.state === "pending"
+                        ? "rgba(255,255,255,0.25)"
+                        : "rgba(255,255,255,0.48)",
+                  }}
+                >
+                  {ev.desc}
+                </p>
               </div>
             </motion.div>
           ))}
