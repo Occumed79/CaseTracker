@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import {
   FileText, MapPin, MessageSquare, PhoneCall, UploadCloud,
   CalendarClock, Clock, AlertTriangle, ChevronRight, TrendingUp,
-  CheckCircle2, Circle, ArrowRight
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -12,7 +11,6 @@ const fade = (delay = 0) => ({
   show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1], delay } },
 });
 
-// Compact recent timeline for dashboard preview (Lawfully-style)
 const RECENT_HISTORY = [
   { label: "RDQA Required", date: "Apr 28", state: "active" as const },
   { label: "Under SME Medical Review", date: "Apr 23", state: "done" as const },
@@ -25,7 +23,7 @@ export default function Dashboard() {
 
   return (
     <div className="px-4 pt-4 pb-8 space-y-5">
-      {/* ── Case identity (Lawfully-style header) ── */}
+      {/* Case identity */}
       <motion.div variants={fade(0)} initial="hidden" animate="show">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -42,48 +40,35 @@ export default function Dashboard() {
               {applicantData.examType}
             </p>
           </div>
-          <div
-            className="rounded-2xl px-3.5 py-2.5 text-center flex-shrink-0"
-            style={{
-              background: "rgba(245,158,11,0.12)",
-              border: "1px solid rgba(245,158,11,0.28)",
-            }}
-          >
+          <div className="glass-card glass-dual-amber rounded-2xl px-3.5 py-2.5 text-center flex-shrink-0">
             <span className="block text-[22px] font-bold leading-none" style={{ color: "rgb(252,211,77)" }}>12</span>
             <span className="text-[9px] font-semibold uppercase tracking-wide" style={{ color: "rgba(252,211,77,0.65)" }}>Days left</span>
           </div>
         </div>
       </motion.div>
 
-      {/* ── Current status card (hero — Lawfully status focus) ── */}
+      {/* Current status — glass elevated + dual amber border */}
       <motion.div variants={fade(0.06)} initial="hidden" animate="show">
-        <div
-          className="rounded-[20px] p-5 relative overflow-hidden"
-          style={{
-            background: "linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
-            border: "1px solid rgba(245,158,11,0.28)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
-          }}
-        >
-          <div className="flex items-center gap-2 mb-2">
+        <div className="glass-elevated glass-refract glass-dual-amber rounded-[22px] p-5 relative overflow-hidden">
+          <div className="absolute -top-14 -right-14 w-40 h-40 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(245,158,11,0.22) 0%, transparent 70%)", filter: "blur(28px)" }} />
+
+          <div className="flex items-center gap-2 mb-2 relative z-10">
             <span className="dot dot-amber" style={{ width: 8, height: 8 }} />
             <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(252,211,77,0.8)" }}>
               Current Status
             </p>
           </div>
 
-          <h2 className="text-[22px] font-bold text-white tracking-tight leading-snug mb-3">
+          <h2 className="text-[22px] font-bold text-white tracking-tight leading-snug mb-3 relative z-10">
             {applicantData.status}
           </h2>
 
-          <p className="text-[13px] leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.62)" }}>
+          <p className="text-[13px] leading-relaxed mb-4 relative z-10" style={{ color: "rgba(255,255,255,0.62)" }}>
             Additional medical information has been requested. Upload the required cardiology clearance letter and blood pressure log to continue review.
           </p>
 
-          <div
-            className="rounded-xl p-3 mb-4 flex items-start gap-2.5"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
-          >
+          <div className="glass-card rounded-xl p-3 mb-4 flex items-start gap-2.5 relative z-10">
             <AlertTriangle style={{ width: 15, height: 15, color: "rgb(252,211,77)", flexShrink: 0, marginTop: 1 }} />
             <div>
               <p className="text-[12px] font-semibold text-white">Waiting on Applicant</p>
@@ -93,8 +78,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Progress */}
-          <div className="mb-4">
+          <div className="mb-4 relative z-10">
             <div className="flex justify-between items-center mb-1.5">
               <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Case progress</span>
               <span className="text-[12px] font-bold" style={{ color: "rgba(147,197,253,0.9)" }}>{pct}%</span>
@@ -106,11 +90,11 @@ export default function Dashboard() {
 
           <Link
             href="/uploads"
-            className="w-full h-[46px] rounded-xl font-semibold text-[14px] flex items-center justify-center gap-2"
+            className="shimmer-btn w-full h-[46px] rounded-xl font-semibold text-[14px] flex items-center justify-center gap-2 relative z-10"
             style={{
               background: "linear-gradient(135deg, hsl(217,100%,52%) 0%, hsl(200,100%,58%) 100%)",
               color: "hsl(224,50%,4%)",
-              border: "1px solid rgba(59,130,246,0.3)",
+              border: "1px solid rgba(59,130,246,0.35)",
             }}
           >
             <UploadCloud style={{ width: 17, height: 17 }} />
@@ -119,7 +103,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ── Case Analysis strip (Lawfully-style insights) ── */}
+      {/* Case Insights — dual-border glass tiles */}
       <motion.div variants={fade(0.1)} initial="hidden" animate="show">
         <p className="text-[11px] font-bold uppercase tracking-wider mb-2.5" style={{ color: "rgba(255,255,255,0.35)" }}>
           Case Insights
@@ -130,14 +114,7 @@ export default function Dashboard() {
             { label: "Priority", value: "High", sub: "RDQA active" },
             { label: "Next", value: "Upload", sub: "your action" },
           ].map((s) => (
-            <div
-              key={s.label}
-              className="rounded-2xl p-3 text-center"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
+            <div key={s.label} className="glass-card glass-dual rounded-2xl p-3 text-center">
               <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                 {s.label}
               </p>
@@ -148,7 +125,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ── Recent history (Lawfully timeline preview) ── */}
+      {/* Case History preview */}
       <motion.div variants={fade(0.14)} initial="hidden" animate="show">
         <div className="flex items-center justify-between mb-2.5">
           <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
@@ -159,13 +136,7 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        <div
-          className="rounded-[20px] p-4"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
+        <div className="glass-card glass-dual rounded-[20px] p-4">
           <div className="relative">
             <div
               className="absolute left-[7px] top-2 bottom-2 w-px"
@@ -199,7 +170,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ── Quick actions ── */}
+      {/* Quick actions */}
       <motion.div variants={fade(0.18)} initial="hidden" animate="show">
         <p className="text-[11px] font-bold uppercase tracking-wider mb-2.5" style={{ color: "rgba(255,255,255,0.35)" }}>
           Quick Actions
@@ -216,17 +187,14 @@ export default function Dashboard() {
             <Link
               key={href}
               href={href}
-              className="rounded-[16px] p-3.5 flex flex-col items-center gap-2 text-center card-hover"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
+              className="glass-card glass-dual card-hover rounded-[16px] p-3.5 flex flex-col items-center gap-2 text-center"
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{
                   background: "rgba(59,130,246,0.12)",
                   border: "1px solid rgba(59,130,246,0.22)",
+                  boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
                 }}
               >
                 <Icon style={{ width: 16, height: 16, color: "rgb(147,197,253)" }} />
@@ -239,15 +207,16 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ── Exam info strip ── */}
+      {/* Exam info */}
       <motion.div variants={fade(0.22)} initial="hidden" animate="show">
-        <div
-          className="rounded-[16px] p-4 flex items-center gap-3"
-          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
-        >
+        <div className="glass-card glass-dual rounded-[16px] p-4 flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center"
-            style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)" }}
+            style={{
+              background: "rgba(59,130,246,0.1)",
+              border: "1px solid rgba(59,130,246,0.2)",
+              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+            }}
           >
             <TrendingUp style={{ width: 17, height: 17, color: "rgb(147,197,253)" }} />
           </div>

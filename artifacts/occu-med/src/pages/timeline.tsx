@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ChevronLeft, UploadCloud } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 
-/**
- * Lawfully-style case history timeline.
- * Each step has a short plain-English description so applicants understand what happened / what's next.
- */
 const EVENTS = [
   {
     id: 1,
@@ -108,7 +104,6 @@ export default function Timeline() {
 
   return (
     <div className="px-4 pt-4 pb-8 space-y-5">
-      {/* Header */}
       <div className="pt-1">
         <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
           Case OM-2026-0148
@@ -119,14 +114,8 @@ export default function Timeline() {
         </p>
       </div>
 
-      {/* Progress summary */}
-      <div
-        className="rounded-[18px] p-4"
-        style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.09)",
-        }}
-      >
+      {/* Progress — dual glass */}
+      <div className="glass-card glass-dual rounded-[18px] p-4">
         <div className="flex justify-between items-center mb-2">
           <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
             Steps completed
@@ -144,15 +133,9 @@ export default function Timeline() {
         </p>
       </div>
 
-      {/* Current status callout */}
+      {/* Current step callout */}
       {active && (
-        <div
-          className="rounded-[16px] p-4"
-          style={{
-            background: "rgba(245,158,11,0.08)",
-            border: "1px solid rgba(245,158,11,0.25)",
-          }}
-        >
+        <div className="glass-elevated glass-refract glass-dual-amber rounded-[18px] p-4">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="dot dot-amber" style={{ width: 7, height: 7 }} />
             <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(252,211,77,0.85)" }}>
@@ -165,12 +148,8 @@ export default function Timeline() {
           </p>
           <Link
             href="/uploads"
-            className="mt-3 inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-[12px] font-semibold"
-            style={{
-              background: "rgba(59,130,246,0.18)",
-              border: "1px solid rgba(59,130,246,0.32)",
-              color: "rgb(147,197,253)",
-            }}
+            className="mt-3 inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-[12px] font-semibold glass-card glass-dual-blue"
+            style={{ color: "rgb(147,197,253)" }}
           >
             <UploadCloud style={{ width: 13, height: 13 }} />
             Upload documents
@@ -178,7 +157,7 @@ export default function Timeline() {
         </div>
       )}
 
-      {/* Full vertical timeline */}
+      {/* Full timeline */}
       <div className="relative">
         <div
           className="absolute left-[15px] top-3 bottom-3 w-px"
@@ -194,9 +173,8 @@ export default function Timeline() {
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.03, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="flex gap-3.5 relative py-3"
+              className="flex gap-3.5 relative py-2.5"
             >
-              {/* Dot */}
               <div className="flex-shrink-0 w-8 flex items-start justify-center pt-0.5">
                 <div
                   className={
@@ -209,23 +187,15 @@ export default function Timeline() {
                 />
               </div>
 
-              {/* Content card */}
               <div
-                className="flex-1 min-w-0 rounded-xl px-3.5 py-3"
-                style={{
-                  background:
-                    ev.state === "active"
-                      ? "rgba(59,130,246,0.08)"
-                      : ev.state === "done"
-                        ? "rgba(255,255,255,0.03)"
-                        : "transparent",
-                  border:
-                    ev.state === "active"
-                      ? "1px solid rgba(59,130,246,0.28)"
-                      : ev.state === "done"
-                        ? "1px solid rgba(255,255,255,0.06)"
-                        : "1px solid transparent",
-                }}
+                className={
+                  ev.state === "active"
+                    ? "flex-1 min-w-0 glass-card glass-dual-blue rounded-xl px-3.5 py-3"
+                    : ev.state === "done"
+                      ? "flex-1 min-w-0 glass-card glass-dual rounded-xl px-3.5 py-3"
+                      : "flex-1 min-w-0 rounded-xl px-3.5 py-3"
+                }
+                style={ev.state === "pending" ? { border: "1px solid transparent" } : undefined}
               >
                 <div className="flex items-start justify-between gap-2">
                   <p
