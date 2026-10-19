@@ -36,7 +36,7 @@ export default function Splash() {
           initial={{ opacity:0, y:12 }}
           animate={{ opacity:1, y:0  }}
           transition={{ delay:0.5, duration:0.6 }}
-          className="text-[28px] font-extrabold text-white tracking-tight leading-none mb-1 text-glow-white"
+          className="text-[28px] font-extrabold text-foreground tracking-tight leading-none mb-1 text-glow-white"
         >CaseTrack</motion.h1>
 
         <motion.p
@@ -44,7 +44,7 @@ export default function Splash() {
           animate={{ opacity:1 }}
           transition={{ delay:0.65 }}
           className="text-label mb-0.5"
-          style={{ color:"rgba(147,197,253,0.75)" }}
+          style={{ color:"var(--system-blue)" }}
         >by Occu-Med</motion.p>
 
         <motion.p
@@ -52,7 +52,7 @@ export default function Splash() {
           animate={{ opacity:1 }}
           transition={{ delay:0.8 }}
           className="text-caption text-center mt-2"
-          style={{ color:"rgba(255,255,255,0.32)" }}
+          style={{ color:"var(--text-secondary)" }}
         >Medical Readiness Platform</motion.p>
       </motion.div>
 
@@ -66,13 +66,13 @@ export default function Splash() {
           {[0,0.18,0.36].map((d,i) => (
             <motion.div key={i}
               className="w-[6px] h-[6px] rounded-full"
-              style={{ background:"rgba(147,197,253,0.6)", boxShadow:"0 0 6px rgba(59,130,246,0.5)" }}
+              style={{ background:"rgba(147,197,253,0.6)",  }}
               animate={{ opacity:[0.3,1,0.3], scale:[0.7,1.3,0.7] }}
               transition={{ duration:1.4, repeat:Infinity, delay:d, ease:"easeInOut" }}
             />
           ))}
         </div>
-        <span className="text-label" style={{ color:"rgba(255,255,255,0.22)", fontSize:9 }}>Loading</span>
+        <span className="text-label" style={{ color:"var(--text-secondary)", fontSize:9 }}>Loading</span>
       </motion.div>
     </div>
   );

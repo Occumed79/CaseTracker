@@ -1,234 +1,172 @@
 import { applicantData } from "@/data/mockData";
-import { motion } from "framer-motion";
 import {
-  FileText, MapPin, MessageSquare, PhoneCall, UploadCloud,
-  CalendarClock, Clock, AlertTriangle, ChevronRight, TrendingUp,
+  FileText,
+  MapPin,
+  MessageSquare,
+  PhoneCall,
+  UploadCloud,
+  CalendarClock,
+  Clock,
+  AlertTriangle,
+  ChevronRight,
+  BriefcaseBusiness,
 } from "lucide-react";
 import { Link } from "wouter";
 
-const fade = (delay = 0) => ({
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1], delay } },
-});
-
 const RECENT_HISTORY = [
-  { label: "RDQA Required", date: "Apr 28", state: "active" as const },
-  { label: "Under SME Medical Review", date: "Apr 23", state: "done" as const },
-  { label: "Results Received", date: "Apr 20", state: "done" as const },
-  { label: "Appointment Attended", date: "Apr 15", state: "done" as const },
+  { label: "RDQA Required", date: "Apr 28", state: "active" },
+  { label: "Under SME Medical Review", date: "Apr 23", state: "done" },
+  { label: "Results Received", date: "Apr 20", state: "done" },
+  { label: "Appointment Attended", date: "Apr 15", state: "done" },
+];
+const ACTIONS = [
+  { href: "/messages", icon: MessageSquare, label: "Message case manager" },
+  { href: "/eforms", icon: FileText, label: "Complete forms" },
+  { href: "/map", icon: MapPin, label: "Find your clinic" },
+  { href: "/appointment-request", icon: PhoneCall, label: "Request a call" },
+  {
+    href: "/extension-request",
+    icon: CalendarClock,
+    label: "Request an extension",
+  },
 ];
 
 export default function Dashboard() {
   const pct = 58;
-
   return (
-    <div className="px-4 pt-4 pb-8 space-y-5">
-      {/* Case identity */}
-      <motion.div variants={fade(0)} initial="hidden" animate="show">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
-              Case {applicantData.caseNumber}
-            </p>
-            <h1 className="text-[26px] font-bold text-white tracking-tight leading-tight">
-              {applicantData.name}
-            </h1>
-            <p className="text-[13px] mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
-              {applicantData.employer} · {applicantData.position}
-            </p>
-            <p className="text-[12px] mt-0.5" style={{ color: "rgba(255,255,255,0.32)" }}>
-              {applicantData.examType}
-            </p>
-          </div>
-          <div className="glass-card glass-dual-amber rounded-2xl px-3.5 py-2.5 text-center flex-shrink-0">
-            <span className="block text-[22px] font-bold leading-none" style={{ color: "rgb(252,211,77)" }}>12</span>
-            <span className="text-[9px] font-semibold uppercase tracking-wide" style={{ color: "rgba(252,211,77,0.65)" }}>Days left</span>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Current status — glass elevated + dual amber border */}
-      <motion.div variants={fade(0.06)} initial="hidden" animate="show">
-        <div className="glass-elevated glass-refract glass-dual-amber rounded-[22px] p-5 relative overflow-hidden">
-          <div className="absolute -top-14 -right-14 w-40 h-40 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(245,158,11,0.22) 0%, transparent 70%)", filter: "blur(28px)" }} />
-
-          <div className="flex items-center gap-2 mb-2 relative z-10">
-            <span className="dot dot-amber" style={{ width: 8, height: 8 }} />
-            <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(252,211,77,0.8)" }}>
-              Current Status
-            </p>
-          </div>
-
-          <h2 className="text-[22px] font-bold text-white tracking-tight leading-snug mb-3 relative z-10">
-            {applicantData.status}
-          </h2>
-
-          <p className="text-[13px] leading-relaxed mb-4 relative z-10" style={{ color: "rgba(255,255,255,0.62)" }}>
-            Additional medical information has been requested. Upload the required cardiology clearance letter and blood pressure log to continue review.
+    <div className="dashboard">
+      <div className="dashboard-heading">
+        <div>
+          <p className="eyebrow">Case {applicantData.caseNumber}</p>
+          <h1>{applicantData.name}</h1>
+          <p className="dashboard-subtitle">
+            {applicantData.employer} · {applicantData.position}
           </p>
-
-          <div className="glass-card rounded-xl p-3 mb-4 flex items-start gap-2.5 relative z-10">
-            <AlertTriangle style={{ width: 15, height: 15, color: "rgb(252,211,77)", flexShrink: 0, marginTop: 1 }} />
-            <div>
-              <p className="text-[12px] font-semibold text-white">Waiting on Applicant</p>
-              <p className="text-[12px] mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
-                {applicantData.nextAction}
+        </div>
+        <div className="deadline-chip">
+          Submission deadline<strong>{applicantData.deadline}</strong>
+        </div>
+      </div>
+      <div className="dashboard-grid">
+        <div className="dashboard-column">
+          <section className="mac-panel" aria-labelledby="case-status">
+            <div className="panel-body">
+              <p className="status-label">
+                <span className="dot dot-amber" />
+                Current status
               </p>
-            </div>
-          </div>
-
-          <div className="mb-4 relative z-10">
-            <div className="flex justify-between items-center mb-1.5">
-              <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Case progress</span>
-              <span className="text-[12px] font-bold" style={{ color: "rgba(147,197,253,0.9)" }}>{pct}%</span>
-            </div>
-            <div className="progress-track h-1.5">
-              <div className="progress-fill" style={{ width: `${pct}%`, height: "100%" }} />
-            </div>
-          </div>
-
-          <Link
-            href="/uploads"
-            className="shimmer-btn w-full h-[46px] rounded-xl font-semibold text-[14px] flex items-center justify-center gap-2 relative z-10"
-            style={{
-              background: "linear-gradient(135deg, hsl(217,100%,52%) 0%, hsl(200,100%,58%) 100%)",
-              color: "hsl(224,50%,4%)",
-              border: "1px solid rgba(59,130,246,0.35)",
-            }}
-          >
-            <UploadCloud style={{ width: 17, height: 17 }} />
-            Upload Required Documents
-          </Link>
-        </div>
-      </motion.div>
-
-      {/* Case Insights — dual-border glass tiles */}
-      <motion.div variants={fade(0.1)} initial="hidden" animate="show">
-        <p className="text-[11px] font-bold uppercase tracking-wider mb-2.5" style={{ color: "rgba(255,255,255,0.35)" }}>
-          Case Insights
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Progress", value: `${pct}%`, sub: "milestones" },
-            { label: "Priority", value: "High", sub: "RDQA active" },
-            { label: "Next", value: "Upload", sub: "your action" },
-          ].map((s) => (
-            <div key={s.label} className="glass-card glass-dual rounded-2xl p-3 text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
-                {s.label}
+              <h2 id="case-status" className="status-heading">
+                {applicantData.status}
+              </h2>
+              <p className="status-description">
+                Additional medical information has been requested. Upload your
+                documents to continue the review of your case.
               </p>
-              <p className="text-[16px] font-bold text-white leading-none">{s.value}</p>
-              <p className="text-[10px] mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>{s.sub}</p>
+              <div className="action-callout">
+                <AlertTriangle size={18} />
+                <div>
+                  <strong>{applicantData.responsibility}</strong>
+                  <p>{applicantData.nextAction}.</p>
+                </div>
+              </div>
+              <div className="progress-label">
+                <span>Case progress</span>
+                <strong>{pct}%</strong>
+              </div>
+              <div
+                className="progress-track h-1.5"
+                role="progressbar"
+                aria-label="Case progress"
+                aria-valuenow={pct}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                <div
+                  className="progress-fill h-full"
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
             </div>
-          ))}
+            <div className="status-footer">
+              <Link href="/uploads" className="mac-primary-button">
+                <UploadCloud size={16} />
+                Upload documents
+              </Link>
+              <Link href="/rdqa" className="mac-text-link">
+                About RDQA
+              </Link>
+            </div>
+          </section>
+          <section className="mac-panel" aria-label="Case insights">
+            <div className="insight-grid">
+              <div>
+                <p>Progress</p>
+                <strong>{pct}%</strong>
+              </div>
+              <div>
+                <p>Priority</p>
+                <strong>High</strong>
+              </div>
+              <div>
+                <p>Next action</p>
+                <strong>Upload</strong>
+              </div>
+            </div>
+          </section>
+          <section className="mac-panel" aria-labelledby="exam-title">
+            <div className="panel-heading">
+              <h2 id="exam-title">Exam details</h2>
+            </div>
+            <div className="exam-detail">
+              <BriefcaseBusiness size={22} />
+              <div>
+                <strong>{applicantData.examType}</strong>
+                <p>
+                  {applicantData.employer} · {applicantData.position}
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
-      </motion.div>
-
-      {/* Case History preview */}
-      <motion.div variants={fade(0.14)} initial="hidden" animate="show">
-        <div className="flex items-center justify-between mb-2.5">
-          <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
-            Case History
-          </p>
-          <Link href="/timeline" className="flex items-center gap-1 text-[12px] font-semibold" style={{ color: "rgb(147,197,253)" }}>
-            See all <ChevronRight style={{ width: 14, height: 14 }} />
-          </Link>
-        </div>
-
-        <div className="glass-card glass-dual rounded-[20px] p-4">
-          <div className="relative">
-            <div
-              className="absolute left-[7px] top-2 bottom-2 w-px"
-              style={{ background: "linear-gradient(180deg, rgba(59,130,246,0.45) 0%, rgba(255,255,255,0.08) 100%)" }}
-            />
-            <div className="space-y-3.5">
-              {RECENT_HISTORY.map((ev) => (
-                <div key={ev.label} className="flex gap-3 relative">
-                  <div className="w-4 flex-shrink-0 flex justify-center pt-1">
-                    {ev.state === "active" ? (
-                      <div className="timeline-dot timeline-dot-active" style={{ width: 10, height: 10 }} />
-                    ) : (
-                      <div className="timeline-dot timeline-dot-done" style={{ width: 10, height: 10 }} />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0 flex items-start justify-between gap-2">
-                    <p
-                      className="text-[13px] font-medium leading-snug"
-                      style={{ color: ev.state === "active" ? "rgb(147,197,253)" : "rgba(255,255,255,0.72)" }}
-                    >
-                      {ev.label}
-                    </p>
-                    <span className="text-[11px] flex-shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>
-                      {ev.date}
-                    </span>
-                  </div>
+        <div className="dashboard-column">
+          <section className="mac-panel" aria-labelledby="history-title">
+            <div className="panel-heading">
+              <h2 id="history-title">Case history</h2>
+              <Link href="/timeline" className="mac-text-link">
+                View all
+              </Link>
+            </div>
+            <div className="history-list">
+              {RECENT_HISTORY.map((event) => (
+                <div className="history-row" key={event.label}>
+                  <span
+                    className={`dot ${event.state === "active" ? "dot-blue" : "dot-green"}`}
+                  />
+                  <p>{event.label}</p>
+                  <time>{event.date}</time>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Quick actions */}
-      <motion.div variants={fade(0.18)} initial="hidden" animate="show">
-        <p className="text-[11px] font-bold uppercase tracking-wider mb-2.5" style={{ color: "rgba(255,255,255,0.35)" }}>
-          Quick Actions
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { href: "/messages", icon: MessageSquare, label: "Message" },
-            { href: "/eforms", icon: FileText, label: "eForms" },
-            { href: "/map", icon: MapPin, label: "Clinic Map" },
-            { href: "/appointment-request", icon: PhoneCall, label: "Request Call" },
-            { href: "/extension-request", icon: CalendarClock, label: "Extension" },
-            { href: "/timeline", icon: Clock, label: "Full Timeline" },
-          ].map(({ href, icon: Icon, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="glass-card glass-dual card-hover rounded-[16px] p-3.5 flex flex-col items-center gap-2 text-center"
-            >
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{
-                  background: "rgba(59,130,246,0.12)",
-                  border: "1px solid rgba(59,130,246,0.22)",
-                  boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
-                }}
-              >
-                <Icon style={{ width: 16, height: 16, color: "rgb(147,197,253)" }} />
-              </div>
-              <span className="text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.72)" }}>
-                {label}
-              </span>
+          </section>
+          <section className="mac-panel" aria-labelledby="actions-title">
+            <div className="panel-heading">
+              <h2 id="actions-title">Quick actions</h2>
+            </div>
+            {ACTIONS.map(({ href, icon: Icon, label }) => (
+              <Link key={href} href={href} className="quick-action">
+                <Icon size={17} strokeWidth={1.75} />
+                <span className="flex-1">{label}</span>
+                <ChevronRight size={14} className="text-muted-foreground" />
+              </Link>
+            ))}
+            <Link href="/timeline" className="quick-action">
+              <Clock size={17} strokeWidth={1.75} />
+              <span className="flex-1">Full timeline</span>
+              <ChevronRight size={14} className="text-muted-foreground" />
             </Link>
-          ))}
+          </section>
         </div>
-      </motion.div>
-
-      {/* Exam info */}
-      <motion.div variants={fade(0.22)} initial="hidden" animate="show">
-        <div className="glass-card glass-dual rounded-[16px] p-4 flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center"
-            style={{
-              background: "rgba(59,130,246,0.1)",
-              border: "1px solid rgba(59,130,246,0.2)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
-            }}
-          >
-            <TrendingUp style={{ width: 17, height: 17, color: "rgb(147,197,253)" }} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-semibold text-white">{applicantData.examType}</p>
-            <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-              {applicantData.employer} · {applicantData.position}
-            </p>
-          </div>
-          <ChevronRight style={{ width: 16, height: 16, color: "rgba(255,255,255,0.25)" }} />
-        </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

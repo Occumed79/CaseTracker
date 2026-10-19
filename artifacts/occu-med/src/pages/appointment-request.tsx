@@ -26,20 +26,20 @@ export default function AppointmentRequest() {
   return (
     <div className="p-4 space-y-6 pb-20">
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Request Phone Appointment</h1>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Request Phone Appointment</h1>
         <p className="text-muted-foreground text-sm">Schedule a call with your case manager.</p>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-3xl p-6 border border-white/10">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-3xl p-6 border border-border">
         <form onSubmit={handleSubmit} className="space-y-5">
-          
+
           <div className="space-y-2">
-            <Label className="text-white/80">Reason for Call</Label>
+            <Label className="text-foreground">Reason for Call</Label>
             <Select required>
-              <SelectTrigger className="bg-black/20 border-white/10 text-white h-12 rounded-xl">
+              <SelectTrigger className="bg-secondary border-border text-foreground h-12 rounded-xl">
                 <SelectValue placeholder="Select a reason" />
               </SelectTrigger>
-              <SelectContent className="bg-popover border-white/10">
+              <SelectContent className="bg-popover border-border">
                 <SelectItem value="rdqa">Questions about RDQA / Requirements</SelectItem>
                 <SelectItem value="waiver">Waiver process update</SelectItem>
                 <SelectItem value="scheduling">Help scheduling an appointment</SelectItem>
@@ -49,20 +49,20 @@ export default function AppointmentRequest() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-white/80">Preferred Date</Label>
+            <Label className="text-foreground">Preferred Date</Label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-              <Input type="date" required className="pl-10 bg-black/20 border-white/10 text-white h-12 rounded-xl [&::-webkit-calendar-picker-indicator]:filter-[invert(1)]" />
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input type="date" required className="pl-10 bg-secondary border-border text-foreground h-12 rounded-xl [&::-webkit-calendar-picker-indicator]:filter-[invert(1)]" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-white/80">Preferred Time Block</Label>
+            <Label className="text-foreground">Preferred Time Block</Label>
             <Select required>
-              <SelectTrigger className="bg-black/20 border-white/10 text-white h-12 rounded-xl">
+              <SelectTrigger className="bg-secondary border-border text-foreground h-12 rounded-xl">
                 <SelectValue placeholder="Select a time block" />
               </SelectTrigger>
-              <SelectContent className="bg-popover border-white/10">
+              <SelectContent className="bg-popover border-border">
                 <SelectItem value="morning">Morning (8am - 12pm EST)</SelectItem>
                 <SelectItem value="afternoon">Afternoon (12pm - 4pm EST)</SelectItem>
               </SelectContent>
@@ -70,8 +70,8 @@ export default function AppointmentRequest() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-white/80">Additional Details</Label>
-            <Textarea placeholder="Any specific questions you want answered?" className="bg-black/20 border-white/10 text-white resize-none h-24 rounded-xl" />
+            <Label className="text-foreground">Additional Details</Label>
+            <Textarea placeholder="Any specific questions you want answered?" className="bg-secondary border-border text-foreground resize-none h-24 rounded-xl" />
           </div>
 
           <Button type="submit" disabled={isSubmitting} className="w-full h-12 rounded-xl bg-orange-500 hover:bg-orange-600 text-black font-semibold text-base mt-4 glow-red shimmer-btn">

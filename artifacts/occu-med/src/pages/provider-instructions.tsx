@@ -17,20 +17,20 @@ export default function ProviderInstructions() {
   return (
     <div className="p-4 space-y-6 pb-20">
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Provider Instructions</h1>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Provider Instructions</h1>
         <p className="text-muted-foreground text-sm">Generate printable checklists for your doctor.</p>
       </div>
 
       {!generated ? (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-3xl p-6 border border-white/10">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-3xl p-6 border border-border">
           <form onSubmit={handleGenerate} className="space-y-5">
             <div className="space-y-2">
-              <Label className="text-white/80">Medical Condition</Label>
+              <Label className="text-foreground">Medical Condition</Label>
               <Select onValueChange={setCondition} required>
-                <SelectTrigger className="bg-black/20 border-white/10 text-white h-12 rounded-xl">
+                <SelectTrigger className="bg-secondary border-border text-foreground h-12 rounded-xl">
                   <SelectValue placeholder="Select condition" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border-white/10">
+                <SelectContent className="bg-popover border-border">
                   <SelectItem value="hypertension">Hypertension (High Blood Pressure)</SelectItem>
                   <SelectItem value="diabetes">Diabetes</SelectItem>
                   <SelectItem value="asthma">Asthma</SelectItem>
@@ -43,12 +43,12 @@ export default function ProviderInstructions() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/80">Specialist Type</Label>
+              <Label className="text-foreground">Specialist Type</Label>
               <Select required>
-                <SelectTrigger className="bg-black/20 border-white/10 text-white h-12 rounded-xl">
+                <SelectTrigger className="bg-secondary border-border text-foreground h-12 rounded-xl">
                   <SelectValue placeholder="Select specialist" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover border-white/10">
+                <SelectContent className="bg-popover border-border">
                   <SelectItem value="pcp">Primary Care Provider</SelectItem>
                   <SelectItem value="cardiologist">Cardiologist</SelectItem>
                   <SelectItem value="endocrinologist">Endocrinologist</SelectItem>
@@ -80,7 +80,7 @@ export default function ProviderInstructions() {
               <p className="text-sm leading-relaxed">
                 Your patient is undergoing a medical clearance examination for deployment or specialized employment. Please provide a clearance letter on official letterhead that addresses the following points regarding their <strong className="text-primary">{condition || "condition"}</strong>:
               </p>
-              
+
               <ul className="space-y-3 mt-4">
                 <li className="flex items-start gap-2 text-sm">
                   <div className="w-5 h-5 rounded border border-gray-300 mt-0.5 shrink-0"></div>
@@ -103,7 +103,7 @@ export default function ProviderInstructions() {
           </div>
 
           <div className="flex gap-3">
-            <Button onClick={() => setGenerated(false)} variant="outline" className="flex-1 h-12 rounded-xl bg-white/5 border-white/10 hover:bg-white/10">
+            <Button onClick={() => setGenerated(false)} variant="outline" className="flex-1 h-12 rounded-xl bg-secondary border-border hover:bg-secondary">
               Back
             </Button>
             <Button onClick={() => window.print()} className="flex-1 h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-blue">

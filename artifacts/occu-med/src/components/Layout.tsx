@@ -1,107 +1,165 @@
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
-import { Home, CheckSquare, UploadCloud, MessageSquare, MoreHorizontal, LayoutDashboard, Users, UserPlus } from "lucide-react";
-import { ReactNode } from "react";
+import {
+  Home,
+  CheckSquare,
+  UploadCloud,
+  MessageSquare,
+  MoreHorizontal,
+  LayoutDashboard,
+  Users,
+  UserPlus,
+  PanelLeft,
+  Bell,
+  FileText,
+  Clock,
+  MapPin,
+  Settings,
+  UserRound,
+} from "lucide-react";
+import { ReactNode, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import { motion } from "framer-motion";
 
 export function Layout({ children }: { children: ReactNode }) {
   const { role } = useAuth();
   const [location] = useLocation();
-
-  if (location === "/splash" || location === "/login" || !role) return <>{children}</>;
-
-  const isApplicant = role === "applicant";
-
-  const applicantLinks = [
-    { href: "/",         label: "Home",     icon: Home },
-    { href: "/tasks",    label: "Tasks",    icon: CheckSquare },
-    { href: "/uploads",  label: "Uploads",  icon: UploadCloud },
-    { href: "/messages", label: "Messages", icon: MessageSquare },
-    { href: "/more",     label: "More",     icon: MoreHorizontal },
+  const [sidebarVisible, setSidebarVisible] = useState(true);
+  if (location === "/splash" || location === "/login" || !role)
+    return <>{children}</>;
+  const primary =
+    role === "applicant"
+      ? [
+          { href: "/", label: "Overview", icon: Home },
+          { href: "/tasks", label: "Tasks", icon: CheckSquare },
+          { href: "/uploads", label: "Uploads", icon: UploadCloud },
+          { href: "/messages", label: "Messages", icon: MessageSquare },
+        ]
+      : [
+          { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+          { href: "/admin/cases", label: "Cases", icon: Users },
+          { href: "/admin/invites", label: "Invites", icon: UserPlus },
+          { href: "/messages", label: "Messages", icon: MessageSquare },
+        ];
+  const resources = [
+    { href: "/timeline", label: "Case history", icon: Clock },
+    { href: "/eforms", label: "Forms", icon: FileText },
+    { href: "/map", label: "Clinic map", icon: MapPin },
+    { href: "/more", label: "All resources", icon: MoreHorizontal },
   ];
-  const adminLinks = [
-    { href: "/admin",         label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/cases",   label: "Cases",     icon: Users },
-    { href: "/admin/invites", label: "Invites",   icon: UserPlus },
-    { href: "/messages",      label: "Messages",  icon: MessageSquare },
-    { href: "/more",          label: "More",      icon: MoreHorizontal },
+  const preferences = [
+    { href: "/profile", label: "Profile", icon: UserRound },
+    { href: "/settings", label: "Settings", icon: Settings },
   ];
-  const links = isApplicant ? applicantLinks : adminLinks;
-
+  // Dashboard must not remain selected on its nested Cases and Invites routes.
+  const active = (href: string) =>
+    location === href ||
+    (href === "/settings" && location.startsWith("/settings/"));
+  const title =
+    [...primary, ...resources, ...preferences].find((link) => active(link.href))
+      ?.label ??
+    location.split("/").filter(Boolean).pop()?.replaceAll("-", " ") ??
+    "CaseTrack";
   return (
-    <div className="min-h-[100dvh] flex flex-col aurora-bg text-foreground">
-      {/* ═══ HEADER ═══ */}
-      <header className="sticky top-0 z-50 app-header px-4 h-[54px] flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          {/* Logo badge */}
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center glow-blue-xs flex-shrink-0"
-            style={{
-              background: "linear-gradient(145deg, rgba(59,130,246,0.22) 0%, rgba(37,99,235,0.12) 100%)",
-              border: "1px solid rgba(59,130,246,0.38)",
-              padding: "5px",
-            }}
-          >
-            <img src="/occu-med-logo.png" alt="Occu-Med" className="w-full h-full object-contain" />
+    <div className={`mac-app ${sidebarVisible ? "" : "sidebar-hidden"}`}>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <aside
+        id="app-sidebar"
+        className="mac-sidebar"
+        aria-label="Application sidebar"
+        inert={!sidebarVisible}
+      >
+        <Link href={role === "admin" ? "/admin" : "/"} className="mac-brand">
+          <div className="mac-brand-icon">
+            <img src="/occu-med-logo.png" alt="" />
           </div>
-          <div className="leading-none">
-            <span className="block text-[13px] font-bold text-white tracking-tight">CaseTrack</span>
-            <span className="block text-[9px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(147,197,253,0.65)" }}>by Occu-Med</span>
+          <div>
+            <strong>CaseTrack</strong>
+            <span>Occu-Med</span>
+          </div>
+        </Link>
+        <nav aria-label="Main navigation">
+          {[
+            { label: "Workspace", links: primary },
+            { label: "Resources", links: resources },
+            { label: "Preferences", links: preferences },
+          ].map((group) => (
+            <div className="mac-nav-group" key={group.label}>
+              <p className="mac-nav-caption">{group.label}</p>
+              {group.links.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={active(href) ? "page" : undefined}
+                  className={`mac-nav-item ${active(href) ? "is-selected" : ""}`}
+                >
+                  <Icon size={18} strokeWidth={1.75} />
+                  <span>{label}</span>
+                </Link>
+              ))}
+            </div>
+          ))}
+        </nav>
+        <div className="mac-sidebar-footer">
+          <span className="mac-avatar">
+            <UserRound size={17} />
+          </span>
+          <div>
+            <strong>
+              {role === "admin" ? "Case manager" : "Applicant portal"}
+            </strong>
+            <span>Demo workspace</span>
           </div>
         </div>
-
-        {/* Right — notification indicator */}
-        <div className="flex items-center gap-2">
-          <div className="relative w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <span style={{ fontSize: 15, lineHeight: 1 }}>🔔</span>
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full dot dot-red" style={{ width:7,height:7 }} />
-          </div>
-        </div>
-      </header>
-
-      {/* ═══ MAIN ═══ */}
-      <main className="flex-1 pb-28 relative z-10">
-        {children}
-      </main>
-
-      {/* ═══ FLOATING DOCK NAV ═══ */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bottom-nav px-3 pt-2 pb-[env(safe-area-inset-bottom,12px)] flex justify-around items-center">
-        {links.map((link) => {
-          const isActive = location === link.href || (link.href !== "/" && location.startsWith(link.href));
-          const Icon = link.icon;
-          return (
-            <Link key={link.href} href={link.href}
-              className="flex flex-col items-center gap-1 relative"
-              style={{ minWidth: 48 }}
+      </aside>
+      <div className="mac-workspace">
+        <header className="mac-toolbar">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              type="button"
+              className="mac-icon-button sidebar-toggle"
+              onClick={() => setSidebarVisible((v) => !v)}
+              aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
+              aria-expanded={sidebarVisible}
+              aria-controls="app-sidebar"
+              title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
             >
-              <motion.div
-                whileTap={{ scale: 0.88 }}
-                transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                className={`w-11 h-9 flex items-center justify-center rounded-2xl transition-all duration-250 ${isActive ? "nav-pill-active" : ""}`}
-              >
-                <Icon
-                  style={{
-                    width: 20, height: 20,
-                    color: isActive ? "hsl(217,100%,70%)" : "rgba(255,255,255,0.32)",
-                    filter: isActive ? "drop-shadow(0 0 6px rgba(59,130,246,0.7))" : "none",
-                    transition: "all 0.25s ease",
-                  }}
-                />
-              </motion.div>
-              <span
-                style={{
-                  fontSize: 9.5, fontWeight: 600, letterSpacing: "0.04em",
-                  color: isActive ? "rgba(147,197,253,0.9)" : "rgba(255,255,255,0.28)",
-                  transition: "color 0.25s",
-                }}
-              >
-                {link.label}
-              </span>
-            </Link>
-          );
-        })}
+              <PanelLeft size={20} />
+            </button>
+            <div className="mac-toolbar-title">
+              <strong>{title}</strong>
+              <span>Medical readiness</span>
+            </div>
+          </div>
+          <Link
+            href="/reminders"
+            className="mac-icon-button"
+            aria-label="Reminders"
+            title="Reminders"
+          >
+            <Bell size={19} />
+          </Link>
+        </header>
+        <main id="main-content" tabIndex={-1} className="mac-content">
+          {children}
+        </main>
+      </div>
+      <nav className="mac-mobile-nav" aria-label="Mobile navigation">
+        {[
+          ...primary,
+          { href: "/more", label: "More", icon: MoreHorizontal },
+        ].map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            aria-current={active(href) ? "page" : undefined}
+            className={active(href) ? "is-selected" : ""}
+          >
+            <Icon size={21} />
+            <span>{label}</span>
+          </Link>
+        ))}
       </nav>
       <Toaster />
     </div>

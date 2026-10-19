@@ -1,6 +1,6 @@
 # Occu-Med CaseTrack
 
-A mobile-first PWA prototype for medical readiness case tracking — pre-employment and annual medical exams. Features a dark macOS Tahoe liquid-glass UI with the Occu-Med branding.
+A mobile-first PWA prototype for medical readiness case tracking — pre-employment and annual medical exams. Features a macOS-inspired light interface with grouped desktop navigation, a collapsible sidebar, responsive mobile tabs, and the Apple system font on macOS. See docs/apple-design.md for official Apple references and implementation details.
 
 ## Run & Operate
 
@@ -24,7 +24,7 @@ A mobile-first PWA prototype for medical readiness case tracking — pre-employm
 - `artifacts/occu-med/src/pages/` — All 22 screens
 - `artifacts/occu-med/src/contexts/AuthContext.tsx` — Auth state (applicant vs admin role, persisted to localStorage)
 - `artifacts/occu-med/src/data/mockData.ts` — All mock data
-- `artifacts/occu-med/src/index.css` — Dark navy liquid-glass theme
+- `artifacts/occu-med/src/index.css` — Neutral macOS-inspired theme and responsive workspace
 - `artifacts/occu-med/public/occu-med-logo.png` — App logo
 - `artifacts/api-server/src/app.ts` — Express server (API routes + serves `occu-med/dist/public/` as static)
 

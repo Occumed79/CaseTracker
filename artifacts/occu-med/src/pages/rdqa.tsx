@@ -22,7 +22,7 @@ export default function RDQAExplainer() {
   return (
     <div className="p-4 space-y-6 pb-20">
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight">RDQA Explainer</h1>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">RDQA Explainer</h1>
         <p className="text-muted-foreground text-sm">Understand your medical requests.</p>
       </div>
 
@@ -33,8 +33,8 @@ export default function RDQAExplainer() {
             <Info className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-white font-medium mb-1">What is an RDQA?</h3>
-            <p className="text-sm text-white/70 leading-relaxed">
+            <h3 className="text-foreground font-medium mb-1">What is an RDQA?</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               "Request for Documentation, Qualification, or Action" is standard procedure. It means the medical review team needs more specific information from your personal doctor before they can clear you. It is not a denial.
             </p>
           </div>
@@ -42,17 +42,17 @@ export default function RDQAExplainer() {
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-3">
-        <h3 className="text-sm font-semibold text-white/80 px-1">Translate Medical Jargon</h3>
+        <h3 className="text-sm font-semibold text-foreground px-1">Translate Medical Jargon</h3>
         <div className="glass-card rounded-2xl p-4 border border-primary/20">
-          <p className="text-xs text-white/60 mb-3">Paste the text from your RDQA notice below, and we'll explain it in plain English.</p>
-          <Textarea 
+          <p className="text-xs text-muted-foreground mb-3">Paste the text from your RDQA notice below, and we'll explain it in plain English.</p>
+          <Textarea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="e.g., 'SME requires cardiology clearance stating no restrictions...'"
-            className="min-h-[100px] bg-black/20 border-white/10 text-white resize-none mb-3"
+            className="min-h-[100px] bg-secondary border-border text-foreground resize-none mb-3"
           />
-          <Button 
-            onClick={handleExplain} 
+          <Button
+            onClick={handleExplain}
             disabled={!query.trim() || isExplaining}
             className="w-full bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 rounded-xl"
           >
@@ -71,9 +71,9 @@ export default function RDQAExplainer() {
         </div>
 
         {explanation && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            animate={{ opacity: 1, scale: 1 }} 
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             className="glass-card rounded-2xl p-5 border border-primary/40 glow-blue relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -82,17 +82,17 @@ export default function RDQAExplainer() {
             <h4 className="text-sm font-bold text-primary mb-2 flex items-center gap-2">
               <Sparkles className="w-4 h-4" /> Plain English Explanation
             </h4>
-            <p className="text-sm text-white/90 leading-relaxed relative z-10">{explanation}</p>
-            
-            <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
-              <h5 className="text-xs font-semibold text-white/60 mb-2 uppercase tracking-wider">Checklist for your doctor:</h5>
+            <p className="text-sm text-foreground leading-relaxed relative z-10">{explanation}</p>
+
+            <div className="mt-4 pt-4 border-t border-border relative z-10">
+              <h5 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">Checklist for your doctor:</h5>
               <ul className="space-y-2">
-                <li className="flex items-start gap-2 text-sm text-white/80">
-                  <FileText className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <li className="flex items-start gap-2 text-sm text-foreground">
+                  <FileText className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   Clearance letter stating "no restrictions"
                 </li>
-                <li className="flex items-start gap-2 text-sm text-white/80">
-                  <Activity className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <li className="flex items-start gap-2 text-sm text-foreground">
+                  <Activity className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   Blood pressure logs (last 30 days)
                 </li>
               </ul>

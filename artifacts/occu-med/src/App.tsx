@@ -37,7 +37,7 @@ function ProtectedRoute({ component: Component, adminOnly = false }: { component
   const { role } = useAuth();
   
   if (!role) return <Login />;
-  if (adminOnly && role !== "admin") return <div className="p-8 text-center text-white/50 mt-20">Access Denied</div>;
+  if (adminOnly && role !== "admin") return <div className="p-8 text-center text-muted-foreground mt-20">Access Denied</div>;
   
   return <Component />;
 }
