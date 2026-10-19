@@ -35,15 +35,15 @@ export default function EForms() {
       <div className="flex flex-col h-[calc(100dvh-54px-80px)]">
         {/* Header */}
         <div className="px-4 py-3 flex items-center gap-3 flex-shrink-0"
-          style={{background:"rgba(6,10,24,0.60)",backdropFilter:"blur(20px)",borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+          style={{background:"var(--surface)",backdropFilter:"blur(20px)",borderBottom:"1px solid rgba(var(--ink-rgb),0.07)"}}>
           <button onClick={()=>setActive(null)}
             className="h-8 px-3 rounded-xl text-[12px] font-bold flex items-center gap-1.5 card-hover"
-            style={{background:"rgba(255,255,255,0.07)",border:"1px solid rgba(255,255,255,0.10)",color:"rgba(255,255,255,0.7)"}}>
+            style={{background:"rgba(var(--ink-rgb),0.07)",border:"1px solid rgba(var(--ink-rgb),0.10)",color:"var(--text-secondary)"}}>
             ← Back
           </button>
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-bold text-white truncate">{activeForm.name}</p>
-            <p className="text-caption" style={{color:"rgba(255,255,255,0.35)"}}>OccuSign · Electronic Signature</p>
+            <p className="text-[13px] font-bold text-foreground truncate">{activeForm.name}</p>
+            <p className="text-caption" style={{color:"var(--text-secondary)"}}>OccuSign · Electronic Signature</p>
           </div>
         </div>
 
@@ -61,11 +61,11 @@ export default function EForms() {
             {/* Placeholder state */}
             <div className="w-20 h-20 rounded-[24px] flex items-center justify-center glow-purple"
               style={{background:"rgba(139,92,246,0.15)",border:"1.5px solid rgba(139,92,246,0.35)"}}>
-              <FileSignature style={{width:36,height:36,color:"rgb(196,181,253)"}}/>
+              <FileSignature style={{width:36,height:36,color:"var(--system-purple)"}}/>
             </div>
             <div className="text-center">
-              <h2 className="text-[20px] font-bold text-white mb-1">{activeForm.name}</h2>
-              <p className="text-caption" style={{color:"rgba(255,255,255,0.42)"}}>
+              <h2 className="text-[20px] font-bold text-foreground mb-1">{activeForm.name}</h2>
+              <p className="text-caption" style={{color:"var(--text-secondary)"}}>
                 The OccuSign eForm tool is deployed separately. When a form URL is configured in Settings → FileMaker Integration, it will appear here as an embedded experience.
               </p>
             </div>
@@ -74,9 +74,9 @@ export default function EForms() {
               <p className="text-label mb-2" style={{color:"rgba(196,181,253,0.7)"}}>How to connect</p>
               <ol className="space-y-1.5">
                 {["Go to Settings → FileMaker Integration","Enter your OccuSign / form tool URL","Return here — forms will load automatically"].map((s,i)=>(
-                  <li key={i} className="flex items-start gap-2 text-caption" style={{color:"rgba(255,255,255,0.55)"}}>
+                  <li key={i} className="flex items-start gap-2 text-caption" style={{color:"var(--text-secondary)"}}>
                     <span className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 text-[9px] font-bold mt-px"
-                      style={{background:"rgba(139,92,246,0.25)",color:"rgb(196,181,253)"}}>{i+1}</span>
+                      style={{background:"rgba(139,92,246,0.25)",color:"var(--system-purple)"}}>{i+1}</span>
                     {s}
                   </li>
                 ))}
@@ -84,7 +84,7 @@ export default function EForms() {
             </div>
             <button onClick={()=>setActive(null)}
               className="shimmer-btn h-11 px-6 rounded-2xl font-bold text-[13px] glow-purple"
-              style={{background:"linear-gradient(135deg,rgba(139,92,246,0.30) 0%,rgba(124,58,237,0.40) 100%)",border:"1px solid rgba(139,92,246,0.40)",color:"rgb(196,181,253)"}}>
+              style={{background:"linear-gradient(135deg,rgba(139,92,246,0.30) 0%,rgba(124,58,237,0.40) 100%)",border:"1px solid rgba(139,92,246,0.40)",color:"var(--system-purple)"}}>
               Back to Forms
             </button>
           </div>
@@ -100,8 +100,8 @@ export default function EForms() {
     <div className="px-4 pt-4 pb-8 space-y-4">
       <div className="pt-1">
         <p className="text-label mb-0.5" style={{color:"rgba(196,181,253,0.65)"}}>Electronic Signature</p>
-        <h1 className="text-[32px] font-extrabold text-white tracking-tight leading-none">OccuSign</h1>
-        <p className="text-caption mt-1" style={{color:"rgba(255,255,255,0.38)"}}>Complete required paperwork electronically.</p>
+        <h1 className="text-[32px] font-extrabold text-foreground tracking-tight leading-none">OccuSign</h1>
+        <p className="text-caption mt-1" style={{color:"var(--text-secondary)"}}>Complete required paperwork electronically.</p>
       </div>
 
       {/* Progress */}
@@ -117,11 +117,10 @@ export default function EForms() {
           <div className="progress-fill" style={{
             width:`${(done/FORMS.length)*100}%`, height:"100%",
             background:"linear-gradient(90deg,hsl(263,85%,55%) 0%,hsl(280,80%,65%) 100%)",
-            boxShadow:"0 0 14px rgba(139,92,246,0.60),0 0 28px rgba(139,92,246,0.28)",
           }}/>
         </div>
         {pending>0 && (
-          <p className="text-caption mt-2" style={{color:"rgba(255,255,255,0.38)"}}>
+          <p className="text-caption mt-2" style={{color:"var(--text-secondary)"}}>
             {pending} form{pending!==1?"s":""} remaining
           </p>
         )}
@@ -146,14 +145,14 @@ export default function EForms() {
                   <Icon style={{width:16,height:16}}/>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13.5px] font-semibold text-white leading-tight">{form.name}</p>
-                  <p className="text-caption mt-0.5" style={{color:"rgba(255,255,255,0.35)"}}>
+                  <p className="text-[13.5px] font-semibold text-foreground leading-tight">{form.name}</p>
+                  <p className="text-caption mt-0.5" style={{color:"var(--text-secondary)"}}>
                     {form.required?"Required":"Optional"} · {form.date}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <span className={`badge ${s.badge}`}>{form.status}</span>
-                  <ChevronRight style={{width:14,height:14,color:"rgba(255,255,255,0.25)"}}/>
+                  <ChevronRight style={{width:14,height:14,color:"var(--text-secondary)"}}/>
                 </div>
               </div>
             </motion.div>
@@ -164,10 +163,10 @@ export default function EForms() {
       {/* Note about iframe connection */}
       <div className="glass-card rounded-[20px] p-4 flex items-start gap-3"
         style={{background:"rgba(59,130,246,0.06)",border:"1px solid rgba(59,130,246,0.18)"}}>
-        <ExternalLink style={{width:15,height:15,color:"rgb(147,197,253)",flexShrink:0,marginTop:1}}/>
-        <p className="text-caption leading-relaxed" style={{color:"rgba(255,255,255,0.45)"}}>
+        <ExternalLink style={{width:15,height:15,color:"var(--system-blue)",flexShrink:0,marginTop:1}}/>
+        <p className="text-caption leading-relaxed" style={{color:"var(--text-secondary)"}}>
           Forms open as an embedded tool. Configure your form platform URL in{" "}
-          <span className="font-semibold" style={{color:"rgb(147,197,253)"}}>Settings → FileMaker Integration</span>{" "}
+          <span className="font-semibold" style={{color:"var(--system-blue)"}}>Settings → FileMaker Integration</span>{" "}
           to enable live form completion.
         </p>
       </div>

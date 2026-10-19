@@ -20,11 +20,11 @@ export default function Tasks() {
   return (
     <div className="px-4 pt-4 pb-8 space-y-5">
       <div className="pt-1">
-        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
+        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "var(--system-blue)" }}>
           Your Checklist
         </p>
-        <h1 className="text-[26px] font-bold text-white tracking-tight leading-none">Tasks</h1>
-        <p className="text-[13px] mt-1.5" style={{ color: "rgba(255,255,255,0.42)" }}>
+        <h1 className="text-[26px] font-bold text-foreground tracking-tight leading-none">Tasks</h1>
+        <p className="text-[13px] mt-1.5" style={{ color: "var(--text-secondary)" }}>
           What still needs action on your medical readiness case.
         </p>
       </div>
@@ -38,8 +38,8 @@ export default function Tasks() {
         ].map((s) => (
           <div key={s.label} className={`glass-card ${s.dual} rounded-2xl p-3 flex flex-col items-center gap-1`}>
             <span className={`dot ${s.dot}`} style={{ width: 7, height: 7 }} />
-            <span className="text-[22px] font-bold text-white leading-none">{s.value}</span>
-            <span className="text-[9px] font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <span className="text-[22px] font-bold text-foreground leading-none">{s.value}</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>
               {s.label}
             </span>
           </div>
@@ -52,15 +52,15 @@ export default function Tasks() {
           animate={{ opacity: 1, y: 0 }}
           className="glass-card glass-dual-amber rounded-2xl p-3.5 flex items-center gap-2.5"
         >
-          <AlertCircle style={{ width: 15, height: 15, color: "rgb(252,165,165)", flexShrink: 0 }} />
-          <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.75)" }}>
-            <span className="font-bold" style={{ color: "rgb(252,165,165)" }}>
+          <AlertCircle style={{ width: 15, height: 15, color: "var(--system-red)", flexShrink: 0 }} />
+          <p className="text-[12px]" style={{ color: "var(--text-primary)" }}>
+            <span className="font-bold" style={{ color: "var(--system-red)" }}>
               {urgent} urgent
             </span>
             {missing > 0 && (
               <>
                 {" "}and{" "}
-                <span className="font-bold" style={{ color: "rgb(252,211,77)" }}>
+                <span className="font-bold" style={{ color: "var(--system-amber)" }}>
                   {missing} missing
                 </span>
               </>
@@ -94,48 +94,47 @@ function TaskRow({ task, index }: { task: any; index: number }) {
       transition={{ delay: index * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className={`glass-card ${s.dual} rounded-[20px] overflow-hidden`}
     >
-      <div className="p-4 cursor-pointer" onClick={() => setOpen(!open)}>
-        <div className="flex items-center gap-3">
+      <button type="button" className="p-4 w-full text-left" aria-expanded={open} aria-label={`${task.title}, ${task.status}`} onClick={() => setOpen(!open)}>
+        <div className="task-row-main flex items-center gap-3">
           <div
             className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.10)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)",
+              background: "rgba(var(--ink-rgb),0.06)",
+              border: "1px solid rgba(var(--ink-rgb),0.10)",
             }}
           >
             <Icon style={{ width: 15, height: 15 }} />
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className={`text-[14px] font-semibold leading-snug ${isDone ? "text-white/40 line-through" : "text-white"}`}>
+            <p className={`text-[14px] font-semibold leading-snug ${isDone ? "text-muted-foreground line-through" : "text-foreground"}`}>
               {task.title}
             </p>
-            <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <div className="flex items-center flex-wrap gap-x-2 gap-y-0 mt-0.5">
+              <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>
                 Due {task.dueDate}
               </span>
-              <span className="w-1 h-1 rounded-full" style={{ background: "rgba(255,255,255,0.18)" }} />
-              <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <span className="w-1 h-1 rounded-full" style={{ background: "rgba(var(--ink-rgb),0.18)" }} />
+              <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>
                 {task.responsible}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="task-row-status flex items-center gap-2 flex-shrink-0">
             <span className={`badge ${s.badge}`}>{task.status}</span>
             <ChevronDown
               style={{
                 width: 14,
                 height: 14,
-                color: "rgba(255,255,255,0.3)",
+                color: "var(--text-secondary)",
                 transform: open ? "rotate(180deg)" : "none",
                 transition: "transform 0.2s",
               }}
             />
           </div>
         </div>
-      </div>
+      </button>
 
       {open && !isDone && (
         <motion.div
@@ -143,7 +142,7 @@ function TaskRow({ task, index }: { task: any; index: number }) {
           animate={{ height: "auto", opacity: 1 }}
           transition={{ duration: 0.25 }}
           className="px-4 pb-4"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: "1px solid rgba(var(--ink-rgb),0.06)" }}
         >
           <div className="pt-3 flex gap-2 flex-wrap">
             <Link
@@ -154,8 +153,7 @@ function TaskRow({ task, index }: { task: any; index: number }) {
                   ? "linear-gradient(135deg,rgba(239,68,68,0.22) 0%,rgba(220,38,38,0.32) 100%)"
                   : "linear-gradient(135deg,rgba(59,130,246,0.20) 0%,rgba(37,99,235,0.28) 100%)",
                 border: isUrgent ? "1px solid rgba(239,68,68,0.38)" : "1px solid rgba(59,130,246,0.32)",
-                color: isUrgent ? "rgb(252,165,165)" : "rgb(147,197,253)",
-                boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+                color: isUrgent ? "var(--system-red)" : "var(--system-blue)",
               }}
             >
               {task.action === "Upload" ? (

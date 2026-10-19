@@ -54,15 +54,14 @@ export default function Messages() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-54px-80px)]">
+    <div className="messages-workspace flex flex-col">
       {/* Header — glass dual */}
       <div
         className="px-4 py-3 flex items-center gap-3 flex-shrink-0"
         style={{
-          background: "rgba(6,10,24,0.72)",
+          background: "var(--surface)",
           backdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.04)",
+          borderBottom: "1px solid rgba(var(--ink-rgb),0.08)",
         }}
       >
         <div
@@ -70,18 +69,17 @@ export default function Messages() {
           style={{
             background: "rgba(59,130,246,0.14)",
             border: "1px solid rgba(59,130,246,0.28)",
-            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
           }}
         >
           <img src="/occu-med-logo.png" alt="CM" className="w-5 h-5 object-contain" />
         </div>
         <div>
-          <p className="text-[14px] font-bold text-white leading-tight">
+          <p className="text-[14px] font-bold text-foreground leading-tight">
             {role === "applicant" ? "Morgan — Case Manager" : "Alex — Applicant"}
           </p>
           <div className="flex items-center gap-1.5">
             <span className="dot dot-green" style={{ width: 6, height: 6 }} />
-            <span className="text-[11px]" style={{ color: "rgb(110,231,183)" }}>
+            <span className="text-[11px]" style={{ color: "var(--system-green)" }}>
               Online
             </span>
           </div>
@@ -97,7 +95,7 @@ export default function Messages() {
         <div className="text-center">
           <span
             className="text-[9px] font-semibold uppercase tracking-wide px-3 py-1 rounded-full"
-            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ background: "rgba(var(--ink-rgb),0.06)", color: "var(--text-secondary)", border: "1px solid rgba(var(--ink-rgb),0.08)" }}
           >
             May 10, 2026
           </span>
@@ -120,7 +118,6 @@ export default function Messages() {
                     style={{
                       background: "rgba(59,130,246,0.14)",
                       border: "1px solid rgba(59,130,246,0.25)",
-                      boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
                     }}
                   >
                     <img src="/occu-med-logo.png" className="object-contain" alt="" style={{ width: 18, height: 18 }} />
@@ -132,19 +129,17 @@ export default function Messages() {
                     style={{
                       borderRadius: isMe ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
                       background: isMe
-                        ? "linear-gradient(135deg,hsl(217,100%,52%) 0%,hsl(210,100%,58%) 100%)"
-                        : "linear-gradient(155deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 100%)",
-                      border: isMe ? "1px solid rgba(59,130,246,0.40)" : "1px solid rgba(255,255,255,0.14)",
-                      color: isMe ? "hsl(224,50%,4%)" : "rgba(255,255,255,0.88)",
-                      boxShadow: isMe
-                        ? "0 4px 16px rgba(37,99,235,0.35), inset 0 0 0 1px rgba(255,255,255,0.15)"
-                        : "0 4px 16px rgba(0,0,0,0.28), inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)",
+                        ? "var(--system-blue)"
+                        : "linear-gradient(155deg, rgba(var(--ink-rgb),0.10) 0%, rgba(var(--ink-rgb),0.05) 100%)",
+                      border: isMe ? "1px solid rgba(59,130,246,0.40)" : "1px solid rgba(var(--ink-rgb),0.14)",
+                      color: isMe ? "var(--on-accent)" : "rgba(var(--ink-rgb),0.88)",
+
                       backdropFilter: isMe ? "none" : "blur(16px)",
                     }}
                   >
                     {msg.text}
                   </div>
-                  <span className="text-[11px] mt-1 px-1" style={{ color: "rgba(255,255,255,0.28)" }}>
+                  <span className="text-[11px] mt-1 px-1" style={{ color: "var(--text-secondary)" }}>
                     {msg.time}
                   </span>
                 </div>
@@ -159,10 +154,9 @@ export default function Messages() {
       <div
         className="flex-shrink-0 px-4 pb-2 pt-2"
         style={{
-          background: "rgba(6,10,24,0.75)",
+          background: "var(--surface)",
           backdropFilter: "blur(28px)",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+          borderTop: "1px solid rgba(var(--ink-rgb),0.08)",
         }}
       >
         <form onSubmit={send} className="flex items-center gap-2.5">
@@ -170,31 +164,31 @@ export default function Messages() {
             type="button"
             className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)",
+              background: "rgba(var(--ink-rgb),0.06)",
+              border: "1px solid rgba(var(--ink-rgb),0.12)",
             }}
           >
-            <Paperclip style={{ width: 16, height: 16, color: "rgba(255,255,255,0.45)" }} />
+            <Paperclip style={{ width: 16, height: 16, color: "var(--text-secondary)" }} />
           </button>
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
+            aria-label="Message"
             placeholder="Message…"
-            className="glass-input flex-1 h-10 px-4 text-[13.5px]"
+            className="glass-input flex-1 min-w-0 h-10 px-4 text-[13.5px]"
             style={{ borderRadius: "22px" }}
           />
           <motion.button
             type="submit"
+            aria-label="Send message"
             whileTap={{ scale: 0.88 }}
             className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shimmer-btn"
             style={{
               background: "linear-gradient(135deg,hsl(217,100%,52%) 0%,hsl(200,100%,60%) 100%)",
               border: "1px solid rgba(59,130,246,0.35)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 16px rgba(59,130,246,0.35)",
             }}
           >
-            <Send style={{ width: 15, height: 15, color: "hsl(224,50%,4%)" }} />
+            <Send style={{ width: 15, height: 15, color: "var(--on-accent)" }} />
           </motion.button>
         </form>
       </div>

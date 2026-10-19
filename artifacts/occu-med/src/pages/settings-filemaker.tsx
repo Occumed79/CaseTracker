@@ -27,53 +27,53 @@ export default function FilemakerSettings() {
     <div className="p-4 space-y-6 pb-20">
       <Link href="/settings" className="text-primary text-sm font-medium mb-2 inline-block">← Back</Link>
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          FileMaker <span className="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/30">Future Integration</span>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight flex flex-wrap items-center gap-2">
+          FileMaker <span className="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-rose-500/20 text-rose-600 border border-rose-500/30">Future Integration</span>
         </h1>
         <p className="text-muted-foreground text-sm">Configure data sync with clinical systems.</p>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-        
-        <div className="glass-card rounded-3xl p-6 border border-white/10 space-y-5">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+
+        <div className="glass-card rounded-3xl p-6 border border-border space-y-5">
+          <div className="flex items-center justify-between border-b border-border pb-4">
             <div>
-              <p className="text-sm font-medium text-white">Enable Integration</p>
-              <p className="text-xs text-white/50">Sync CaseTrack with FileMaker</p>
+              <p className="text-sm font-medium text-foreground">Enable Integration</p>
+              <p className="text-xs text-muted-foreground">Sync CaseTrack with FileMaker</p>
             </div>
             <Switch />
           </div>
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-white/80">FileMaker Server URL</Label>
-              <Input defaultValue="https://fm.occu-med.test" className="bg-black/20 border-white/10 text-white h-10 rounded-xl" />
+              <Label className="text-foreground">FileMaker Server URL</Label>
+              <Input defaultValue="https://fm.occu-med.test" className="bg-secondary border-border text-foreground h-10 rounded-xl" />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label className="text-white/80">Database Name</Label>
-                <Input defaultValue="OM_Clinical" className="bg-black/20 border-white/10 text-white h-10 rounded-xl" />
+                <Label className="text-foreground">Database Name</Label>
+                <Input defaultValue="OM_Clinical" className="bg-secondary border-border text-foreground h-10 rounded-xl" />
               </div>
               <div className="space-y-2">
-                <Label className="text-white/80">Layout Name</Label>
-                <Input defaultValue="CaseAPI" className="bg-black/20 border-white/10 text-white h-10 rounded-xl" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label className="text-white/80">API Username</Label>
-                <Input defaultValue="api_casetrack" className="bg-black/20 border-white/10 text-white h-10 rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-white/80">API Password</Label>
-                <Input type="password" defaultValue="********" className="bg-black/20 border-white/10 text-white h-10 rounded-xl" />
+                <Label className="text-foreground">Layout Name</Label>
+                <Input defaultValue="CaseAPI" className="bg-secondary border-border text-foreground h-10 rounded-xl" />
               </div>
             </div>
 
-            <div className="pt-4 flex gap-3">
-              <Button onClick={handleTest} disabled={isTesting} className="flex-1 bg-white/5 border border-white/10 hover:bg-white/10 text-white h-12 rounded-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label className="text-foreground">API Username</Label>
+                <Input defaultValue="api_casetrack" className="bg-secondary border-border text-foreground h-10 rounded-xl" />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-foreground">API Password</Label>
+                <Input type="password" defaultValue="********" className="bg-secondary border-border text-foreground h-10 rounded-xl" />
+              </div>
+            </div>
+
+            <div className="pt-4 flex flex-col sm:flex-row gap-3">
+              <Button onClick={handleTest} disabled={isTesting} className="flex-1 bg-secondary border border-border hover:bg-secondary text-foreground h-12 rounded-xl">
                 {isTesting ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <LinkIcon className="w-4 h-4 mr-2" />}
                 Test Connection
               </Button>
@@ -83,7 +83,7 @@ export default function FilemakerSettings() {
             </div>
 
             {testResult === "success" && (
-              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-2 text-emerald-400 text-sm mt-4">
+              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-2 text-emerald-600 text-sm mt-4">
                 <CheckCircle2 className="w-4 h-4" /> Connected to FileMaker Server 19.6.3
               </div>
             )}

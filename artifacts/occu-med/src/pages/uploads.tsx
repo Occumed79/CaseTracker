@@ -32,11 +32,11 @@ export default function Uploads() {
   return (
     <div className="px-4 pt-4 pb-8 space-y-5">
       <div className="pt-1">
-        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
+        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "var(--system-blue)" }}>
           Document Center
         </p>
-        <h1 className="text-[26px] font-bold text-white tracking-tight leading-none">Uploads</h1>
-        <p className="text-[13px] mt-1.5" style={{ color: "rgba(255,255,255,0.42)" }}>
+        <h1 className="text-[26px] font-bold text-foreground tracking-tight leading-none">Uploads</h1>
+        <p className="text-[13px] mt-1.5" style={{ color: "var(--text-secondary)" }}>
           Securely submit required medical records.
         </p>
       </div>
@@ -58,10 +58,9 @@ export default function Uploads() {
             style={{
               background: "linear-gradient(145deg,rgba(59,130,246,0.22) 0%,rgba(37,99,235,0.12) 100%)",
               border: "1px solid rgba(59,130,246,0.35)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 0 20px rgba(59,130,246,0.25)",
             }}
           >
-            <UploadCloud style={{ width: 28, height: 28, color: "rgb(147,197,253)" }} />
+            <UploadCloud style={{ width: 28, height: 28, color: "var(--system-blue)" }} />
           </div>
           <motion.div
             className="absolute inset-0 rounded-full border border-blue-400/30"
@@ -70,8 +69,8 @@ export default function Uploads() {
           />
         </div>
 
-        <h3 className="text-[16px] font-bold text-white mb-1">Drop files here or tap to upload</h3>
-        <p className="text-[12px] mb-5" style={{ color: "rgba(255,255,255,0.38)" }}>
+        <h3 className="text-[16px] font-bold text-foreground mb-1">Drop files here or tap to upload</h3>
+        <p className="text-[12px] mb-5" style={{ color: "var(--text-secondary)" }}>
           PDF, JPEG, PNG · Max 20 MB
         </p>
 
@@ -90,9 +89,8 @@ export default function Uploads() {
           className="shimmer-btn h-10 px-6 rounded-2xl font-bold text-[13px]"
           style={{
             background: "linear-gradient(135deg,hsl(217,100%,52%) 0%,hsl(200,100%,60%) 100%)",
-            color: "hsl(224,50%,4%)",
+            color: "var(--on-accent)",
             border: "1px solid rgba(59,130,246,0.35)",
-            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)",
           }}
         >
           Select File
@@ -100,17 +98,17 @@ export default function Uploads() {
       </motion.div>
 
       <div className="glass-card glass-dual-amber rounded-[18px] p-4 flex items-start gap-3">
-        <AlertTriangle style={{ width: 16, height: 16, color: "rgb(252,211,77)", flexShrink: 0, marginTop: 1 }} />
+        <AlertTriangle style={{ width: 16, height: 16, color: "var(--system-amber)", flexShrink: 0, marginTop: 1 }} />
         <div>
-          <p className="text-[12px] font-bold text-white mb-0.5">AI Document Check</p>
-          <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.48)" }}>
+          <p className="text-[12px] font-bold text-foreground mb-0.5">AI Document Check</p>
+          <p className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
             Uploaded files are automatically scanned for legibility, completeness, and required signatures.
           </p>
         </div>
       </div>
 
       <div>
-        <p className="text-[11px] font-bold uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+        <p className="text-[11px] font-bold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
           Uploaded Documents
         </p>
         <div className="space-y-2.5">
@@ -129,32 +127,31 @@ export default function Uploads() {
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                       style={{
-                        background: "rgba(255,255,255,0.06)",
-                        border: "1px solid rgba(255,255,255,0.10)",
-                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)",
+                        background: "rgba(var(--ink-rgb),0.06)",
+                        border: "1px solid rgba(var(--ink-rgb),0.10)",
                       }}
                     >
-                      <FileText style={{ width: 18, height: 18, color: "rgba(255,255,255,0.6)" }} />
+                      <FileText style={{ width: 18, height: 18, color: "var(--text-secondary)" }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[13px] font-semibold text-white truncate">{doc.name}</p>
+                      <p className="text-[13px] font-semibold text-foreground truncate">{doc.name}</p>
                       <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                        <span className="text-[10px] font-semibold uppercase" style={{ color: "rgba(255,255,255,0.38)" }}>
+                        <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--text-secondary)" }}>
                           {doc.type}
                         </span>
-                        <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 9 }}>·</span>
-                        <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>
+                        <span style={{ color: "var(--text-secondary)", fontSize: 9 }}>·</span>
+                        <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>
                           {doc.size}
                         </span>
-                        <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 9 }}>·</span>
-                        <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>
+                        <span style={{ color: "var(--text-secondary)", fontSize: 9 }}>·</span>
+                        <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>
                           {doc.date}
                         </span>
                       </div>
                       {doc.warning && (
                         <div className="flex items-center gap-1 mt-1">
-                          <AlertTriangle style={{ width: 10, height: 10, color: "rgb(252,165,165)" }} />
-                          <span className="text-[11px]" style={{ color: "rgb(252,165,165)" }}>
+                          <AlertTriangle style={{ width: 10, height: 10, color: "var(--system-red)" }} />
+                          <span className="text-[11px]" style={{ color: "var(--system-red)" }}>
                             {doc.warning}
                           </span>
                         </div>
@@ -162,7 +159,7 @@ export default function Uploads() {
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <span className={`badge ${st.badge}`}>{doc.status}</span>
-                      <ChevronRight style={{ width: 14, height: 14, color: "rgba(255,255,255,0.25)" }} />
+                      <ChevronRight style={{ width: 14, height: 14, color: "var(--text-secondary)" }} />
                     </div>
                   </div>
                 </motion.div>

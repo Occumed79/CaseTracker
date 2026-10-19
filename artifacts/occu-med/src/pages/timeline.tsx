@@ -105,11 +105,11 @@ export default function Timeline() {
   return (
     <div className="px-4 pt-4 pb-8 space-y-5">
       <div className="pt-1">
-        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "rgba(147,197,253,0.55)" }}>
+        <p className="text-[11px] font-semibold tracking-wide uppercase mb-1" style={{ color: "var(--system-blue)" }}>
           Case OM-2026-0148
         </p>
-        <h1 className="text-[26px] font-bold text-white tracking-tight leading-none">Case History</h1>
-        <p className="text-[13px] mt-1.5" style={{ color: "rgba(255,255,255,0.42)" }}>
+        <h1 className="text-[26px] font-bold text-foreground tracking-tight leading-none">Case History</h1>
+        <p className="text-[13px] mt-1.5" style={{ color: "var(--text-secondary)" }}>
           Every status update on your medical readiness case, in order.
         </p>
       </div>
@@ -117,18 +117,18 @@ export default function Timeline() {
       {/* Progress — dual glass */}
       <div className="glass-card glass-dual rounded-[18px] p-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <span className="text-[12px] font-medium" style={{ color: "var(--text-secondary)" }}>
             Steps completed
           </span>
-          <span className="text-[18px] font-bold" style={{ color: "rgb(147,197,253)" }}>
+          <span className="text-[18px] font-bold" style={{ color: "var(--system-blue)" }}>
             {done}
-            <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>/{total}</span>
+            <span className="text-[12px] font-medium" style={{ color: "var(--text-secondary)" }}>/{total}</span>
           </span>
         </div>
         <div className="progress-track h-1.5 mb-2">
           <div className="progress-fill" style={{ width: `${pct}%`, height: "100%" }} />
         </div>
-        <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.38)" }}>
+        <p className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
           {pct}% of case milestones reached
         </p>
       </div>
@@ -138,18 +138,18 @@ export default function Timeline() {
         <div className="glass-elevated glass-refract glass-dual-amber rounded-[18px] p-4">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="dot dot-amber" style={{ width: 7, height: 7 }} />
-            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "rgba(252,211,77,0.85)" }}>
+            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--system-amber)" }}>
               Current step
             </span>
           </div>
-          <p className="text-[15px] font-semibold text-white">{active.label}</p>
-          <p className="text-[12px] mt-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <p className="text-[15px] font-semibold text-foreground">{active.label}</p>
+          <p className="text-[12px] mt-1 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
             {active.desc}
           </p>
           <Link
             href="/uploads"
             className="mt-3 inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-[12px] font-semibold glass-card glass-dual-blue"
-            style={{ color: "rgb(147,197,253)" }}
+            style={{ color: "var(--system-blue)" }}
           >
             <UploadCloud style={{ width: 13, height: 13 }} />
             Upload documents
@@ -162,7 +162,7 @@ export default function Timeline() {
         <div
           className="absolute left-[15px] top-3 bottom-3 w-px"
           style={{
-            background: "linear-gradient(180deg, rgba(16,185,129,0.45) 0%, rgba(59,130,246,0.35) 40%, rgba(255,255,255,0.06) 85%)",
+            background: "linear-gradient(180deg, rgba(16,185,129,0.45) 0%, rgba(59,130,246,0.35) 40%, rgba(var(--ink-rgb),0.06) 85%)",
           }}
         />
 
@@ -203,10 +203,10 @@ export default function Timeline() {
                     style={{
                       color:
                         ev.state === "pending"
-                          ? "rgba(255,255,255,0.32)"
+                          ? "rgba(var(--ink-rgb),0.32)"
                           : ev.state === "active"
-                            ? "rgb(147,197,253)"
-                            : "rgba(255,255,255,0.85)",
+                            ? "var(--system-blue)"
+                            : "rgba(var(--ink-rgb),0.85)",
                     }}
                   >
                     {ev.label}
@@ -218,7 +218,7 @@ export default function Timeline() {
                   )}
                 </div>
                 {ev.date && (
-                  <p className="text-[11px] mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <p className="text-[11px] mt-0.5" style={{ color: "var(--text-secondary)" }}>
                     {ev.date}
                   </p>
                 )}
@@ -227,8 +227,8 @@ export default function Timeline() {
                   style={{
                     color:
                       ev.state === "pending"
-                        ? "rgba(255,255,255,0.25)"
-                        : "rgba(255,255,255,0.48)",
+                        ? "rgba(var(--ink-rgb),0.25)"
+                        : "rgba(var(--ink-rgb),0.48)",
                   }}
                 >
                   {ev.desc}
