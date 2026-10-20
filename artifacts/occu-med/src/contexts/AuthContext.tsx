@@ -1,7 +1,9 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { useLocation } from "wouter";
+import { PORTAL_HOME } from "@/lib/portalRoutes";
+import type { PortalRole } from "@/lib/portalRoutes";
 
-type UserRole = "applicant" | "admin" | null;
+type UserRole = PortalRole | null;
 
 interface AuthContextType {
   role: UserRole;
@@ -14,19 +16,16 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [role, setRole] = useState<UserRole>(() => {
     const saved = localStorage.getItem("occu_med_auth_role");
-    return (saved as UserRole) || null;
+    return saved === "admin" || saved === "applicant" ? saved : null;
   });
   const [, setLocation] = useLocation();
 
   const login = (newRole: UserRole) => {
     setRole(newRole);
     if (newRole) {
+      // This is a workspace selector, NOT server-backed account authentication.
       localStorage.setItem("occu_med_auth_role", newRole);
-      if (newRole === "admin") {
-        setLocation("/admin");
-      } else {
-        setLocation("/");
-      }
+      setLocation(PORTAL_HOME[newRole]);
     }
   };
 
@@ -45,8 +44,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 }

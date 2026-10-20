@@ -32,13 +32,13 @@ export default function Dashboard() {
           </section>
           <CaseRequirements />
           <div className="flex flex-wrap gap-3">
-            <Link href="/eforms" className="mac-primary-button">
+            <Link href="/examinee/eforms" className="mac-primary-button">
               Authorization forms
             </Link>
-            <Link href="/rdqa" className="mac-demo-button px-4">
+            <Link href="/examinee/rdqa" className="mac-demo-button px-4">
               About RDQA
             </Link>
-            <Link href="/timeline" className="mac-demo-button px-4">
+            <Link href="/examinee/timeline" className="mac-demo-button px-4">
               Case activity
             </Link>
           </div>

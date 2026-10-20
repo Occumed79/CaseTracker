@@ -157,10 +157,10 @@ export default function More() {
             {group.items.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={"/examinee" + item.href}
                 className="flex items-center gap-3 p-4 hover:bg-secondary transition-colors"
               >
-                <item.icon className={`w-5 h-5 ${item.color}`} />
+                <item.icon className="w-5 h-5 text-[color:var(--system-blue)]" />
                 <span className="text-sm font-medium text-foreground flex-1">
                   {item.label}
                 </span>
