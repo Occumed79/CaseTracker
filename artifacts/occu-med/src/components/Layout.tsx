@@ -1,83 +1,63 @@
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
+import { ADMIN_PATHS, EXAMINEE_PATHS } from "@/lib/portalRoutes";
 import {
-  Home,
-  CheckSquare,
-  UploadCloud,
-  MessageSquare,
-  MoreHorizontal,
-  LayoutDashboard,
-  Users,
-  UserPlus,
-  PanelLeft,
-  Bell,
-  FileText,
-  Clock,
-  MapPin,
-  Settings,
-  UserRound,
+  Home, CheckSquare, UploadCloud, MessageSquare, MoreHorizontal,
+  LayoutDashboard, Users, UserPlus, PanelLeft, Bell, FileText,
+  Clock, MapPin, Settings, UserRound, LogOut,
 } from "lucide-react";
 import { ReactNode, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Toaster } from "@/components/ui/toaster";
 
 export function Layout({ children }: { children: ReactNode }) {
-  const { role } = useAuth();
+  const { role, logout } = useAuth();
   const [location] = useLocation();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   if (location === "/splash" || location === "/login" || !role)
     return <>{children}</>;
-  const primary =
-    role === "applicant"
-      ? [
-          { href: "/", label: "Overview", icon: Home },
-          { href: "/tasks", label: "Tasks", icon: CheckSquare },
-          { href: "/uploads", label: "Uploads", icon: UploadCloud },
-          { href: "/messages", label: "Messages", icon: MessageSquare },
-        ]
-      : [
-          { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-          { href: "/admin/cases", label: "Cases", icon: Users },
-          { href: "/admin/invites", label: "Invites", icon: UserPlus },
-          { href: "/messages", label: "Messages", icon: MessageSquare },
-        ];
-  const resources = [
-    { href: "/timeline", label: "Case activity", icon: Clock },
-    { href: "/eforms", label: "Authorization forms", icon: FileText },
-    { href: "/map", label: "Assigned clinic", icon: MapPin },
-    { href: "/more", label: "All resources", icon: MoreHorizontal },
-  ];
-  const preferences = [
-    { href: "/profile", label: "Profile", icon: UserRound },
-    { href: "/settings", label: "Settings", icon: Settings },
-  ];
-  // Dashboard must not remain selected on its nested Cases and Invites routes.
+
+  const admin = role === "admin";
+  const primary = admin
+    ? [
+        { href: ADMIN_PATHS.home, label: "Overview", icon: LayoutDashboard },
+        { href: ADMIN_PATHS.cases, label: "Cases", icon: Users },
+        { href: ADMIN_PATHS.invites, label: "Invitations", icon: UserPlus },
+      ]
+    : [
+        { href: EXAMINEE_PATHS.home, label: "Overview", icon: Home },
+        { href: EXAMINEE_PATHS.tasks, label: "Tasks", icon: CheckSquare },
+        { href: EXAMINEE_PATHS.uploads, label: "Documents", icon: UploadCloud },
+        { href: EXAMINEE_PATHS.messages, label: "Messages", icon: MessageSquare },
+      ];
+  const resources = admin
+    ? [{ href: ADMIN_PATHS.map, label: "Clinic map", icon: MapPin }]
+    : [
+        { href: EXAMINEE_PATHS.map, label: "Assigned clinic map", icon: MapPin },
+        { href: EXAMINEE_PATHS.forms, label: "Authorization forms", icon: FileText },
+        { href: EXAMINEE_PATHS.timeline, label: "Case activity", icon: Clock },
+        { href: EXAMINEE_PATHS.more, label: "More resources", icon: MoreHorizontal },
+      ];
+  const preferences = admin
+    ? [{ href: ADMIN_PATHS.settings, label: "Settings", icon: Settings }]
+    : [
+        { href: EXAMINEE_PATHS.profile, label: "My case profile", icon: UserRound },
+        { href: EXAMINEE_PATHS.settings, label: "Settings", icon: Settings },
+      ];
   const active = (href: string) =>
-    location === href ||
-    (href === "/settings" && location.startsWith("/settings/"));
-  const title =
-    [...primary, ...resources, ...preferences].find((link) => active(link.href))
-      ?.label ??
-    location.split("/").filter(Boolean).pop()?.replaceAll("-", " ") ??
-    "CaseTrack";
+    location === href || (href.endsWith("/settings") && location.startsWith(href + "/"));
+  const title = [...primary, ...resources, ...preferences].find((link) => active(link.href))?.label ??
+    location.split("/").filter(Boolean).pop()?.replaceAll("-", " ") ?? "CaseTrack";
+
   return (
-    <div className={`mac-app ${sidebarVisible ? "" : "sidebar-hidden"}`}>
-      <a href="#main-content" className="skip-link">
-        Skip to content
-      </a>
-      <aside
-        id="app-sidebar"
-        className="mac-sidebar"
-        aria-label="Application sidebar"
-        inert={!sidebarVisible}
-      >
-        <Link href={role === "admin" ? "/admin" : "/"} className="mac-brand">
+    <div className={"mac-app " + (sidebarVisible ? "" : "sidebar-hidden")}>
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <aside id="app-sidebar" className="mac-sidebar" aria-label={admin ? "Admin portal navigation" : "Examinee portal navigation"} inert={!sidebarVisible}>
+        <Link href={admin ? ADMIN_PATHS.home : EXAMINEE_PATHS.home} className="mac-brand">
           <BrandLogo />
-          <div>
-            <strong>CaseTrack</strong>
-            <span>Occu-Med</span>
-          </div>
+          <span className="mac-brand-product">CaseTrack</span>
         </Link>
+        <p className="mac-portal-name">{admin ? "Admin portal" : "Examinee portal"}</p>
         <nav aria-label="Main navigation">
           {[
             { label: "Workspace", links: primary },
@@ -87,76 +67,55 @@ export function Layout({ children }: { children: ReactNode }) {
             <div className="mac-nav-group" key={group.label}>
               <p className="mac-nav-caption">{group.label}</p>
               {group.links.map(({ href, label, icon: Icon }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  aria-current={active(href) ? "page" : undefined}
-                  className={`mac-nav-item ${active(href) ? "is-selected" : ""}`}
-                >
-                  <Icon size={18} strokeWidth={1.75} />
-                  <span>{label}</span>
+                <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}
+                  className={"mac-nav-item " + (active(href) ? "is-selected" : "")}>
+                  <Icon size={18} strokeWidth={1.75} /><span>{label}</span>
                 </Link>
               ))}
             </div>
           ))}
         </nav>
         <div className="mac-sidebar-footer">
-          <span className="mac-avatar">
-            <UserRound size={17} />
-          </span>
-          <div>
-            <strong>
-              {role === "admin" ? "Case manager" : "Applicant portal"}
-            </strong>
-            <span>Browser workspace</span>
-          </div>
+          <span className="mac-avatar"><UserRound size={17} /></span>
+          <div><strong>{admin ? "Administrative workspace" : "Examinee workspace"}</strong><span>Browser-local demonstration</span></div>
         </div>
+        <button type="button" className="mac-signout-button" onClick={logout}>
+          <LogOut size={16} /> Sign out / switch portal
+        </button>
       </aside>
       <div className="mac-workspace">
         <header className="mac-toolbar">
           <div className="flex items-center gap-3 min-w-0">
-            <button
-              type="button"
-              className="mac-icon-button sidebar-toggle"
+            <button type="button" className="mac-icon-button sidebar-toggle"
               onClick={() => setSidebarVisible((v) => !v)}
               aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
-              aria-expanded={sidebarVisible}
-              aria-controls="app-sidebar"
-              title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
-            >
+              aria-expanded={sidebarVisible} aria-controls="app-sidebar"
+              title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}>
               <PanelLeft size={20} />
             </button>
-            <div className="mac-toolbar-title">
-              <strong>{title}</strong>
-              <span>Medical readiness</span>
-            </div>
+            <div className="mac-toolbar-title"><strong>{title}</strong><span>{admin ? "Admin portal" : "Examinee portal"}</span></div>
           </div>
-          <Link
-            href="/reminders"
-            className="mac-icon-button"
-            aria-label="Reminders"
-            title="Reminders"
-          >
-            <Bell size={19} />
-          </Link>
+          {admin ? (
+            <Link href={ADMIN_PATHS.cases} className="mac-icon-button" aria-label="Manage cases" title="Manage cases"><Users size={19} /></Link>
+          ) : (
+            <Link href={EXAMINEE_PATHS.reminders} className="mac-icon-button" aria-label="Reminders" title="Reminders"><Bell size={19} /></Link>
+          )}
         </header>
-        <main id="main-content" tabIndex={-1} className="mac-content">
-          {children}
-        </main>
+        <main id="main-content" tabIndex={-1} className="mac-content">{children}</main>
       </div>
-      <nav className="mac-mobile-nav" aria-label="Mobile navigation">
-        {[
+      <nav className="mac-mobile-nav" aria-label={admin ? "Admin mobile navigation" : "Examinee mobile navigation"}>
+        {(admin ? [
           ...primary,
-          { href: "/more", label: "More", icon: MoreHorizontal },
-        ].map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            aria-current={active(href) ? "page" : undefined}
-            className={active(href) ? "is-selected" : ""}
-          >
-            <Icon size={21} />
-            <span>{label}</span>
+          { href: ADMIN_PATHS.map, label: "Clinic", icon: MapPin },
+          { href: ADMIN_PATHS.settings, label: "Settings", icon: Settings },
+        ] : [
+          ...primary,
+          { href: EXAMINEE_PATHS.map, label: "Clinic", icon: MapPin },
+          { href: EXAMINEE_PATHS.more, label: "More", icon: MoreHorizontal },
+        ]).map(({ href, label, icon: Icon }) => (
+          <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}
+            className={active(href) ? "is-selected" : ""}>
+            <Icon size={21} /><span>{label}</span>
           </Link>
         ))}
       </nav>
