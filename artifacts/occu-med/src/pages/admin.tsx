@@ -1,60 +1,68 @@
-import { motion } from "framer-motion";
-import { Users, Activity, AlertTriangle, Clock } from "lucide-react";
 import { Link } from "wouter";
-
+import { useCases } from "@/contexts/CaseContext";
+import { CasePicker, WorkspacePage } from "@/components/CaseWorkspace";
 export default function AdminDashboard() {
+  const { cases } = useCases();
   const metrics = [
-    { title: "Active Cases", value: "142", icon: Users, color: "text-blue-600" },
-    { title: "RDQA Required", value: "28", icon: AlertTriangle, color: "text-amber-600" },
-    { title: "Waivers Pending", value: "15", icon: Clock, color: "text-purple-600" },
-    { title: "Cleared Today", value: "8", icon: Activity, color: "text-emerald-600" },
+    { label: "Cases", value: cases.length },
+    {
+      label: "RDQ follow-up",
+      value: cases.filter((c) => c.status === "RDQ follow-up").length,
+    },
+    {
+      label: "Medical review",
+      value: cases.filter((c) => c.status === "Medical review").length,
+    },
+    {
+      label: "Recommendation issued",
+      value: cases.filter((c) => c.status === "Placement recommendation issued")
+        .length,
+    },
   ];
-
+  const events = cases
+    .flatMap((c) => c.events.map((e) => ({ ...e, caseId: c.id })))
+    .sort((a, b) => b.at.localeCompare(a.at))
+    .slice(0, 10);
   return (
-    <div className="p-4 space-y-6 pb-20">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Admin Dashboard</h1>
-        <p className="text-muted-foreground text-sm">Case Manager Overview</p>
-      </div>
-
+    <WorkspacePage
+      title="Case manager overview"
+      description="Counts and activity reflect the cases in this workspace."
+    >
+      <CasePicker />
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        {metrics.map((metric, i) => (
-          <motion.div
-            key={metric.title}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-            className="glass-card p-4 rounded-2xl border border-border"
-          >
-            <metric.icon className={`w-5 h-5 mb-2 ${metric.color}`} />
-            <h3 className="text-2xl font-bold text-foreground">{metric.value}</h3>
-            <p className="text-xs text-muted-foreground">{metric.title}</p>
-          </motion.div>
+        {metrics.map((m) => (
+          <section key={m.label} className="mac-panel panel-body">
+            <p className="text-3xl font-semibold">{m.value}</p>
+            <p className="text-xs text-muted-foreground mt-2">{m.label}</p>
+          </section>
         ))}
       </div>
-
-      <div className="space-y-4">
-        <div className="flex justify-between items-center px-1">
-          <h3 className="text-sm font-semibold text-foreground">Recent Activity</h3>
-          <Link href="/admin/cases" className="text-xs font-semibold text-primary">View All Cases</Link>
+      <section className="mac-panel">
+        <div className="panel-heading">
+          <h2>Recent activity</h2>
+          <Link href="/admin/cases" className="mac-text-link">
+            Manage cases
+          </Link>
         </div>
-
-        {[1, 2, 3].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + (i * 0.1) }}
-            className="glass-card p-4 rounded-2xl border border-border flex justify-between items-center"
-          >
-            <div>
-              <p className="text-sm font-medium text-foreground">Alex Applicant</p>
-              <p className="text-xs text-muted-foreground">Uploaded Document: Cardiology_Clearance.pdf</p>
-            </div>
-            <span className="text-xs text-muted-foreground">10m ago</span>
-          </motion.div>
-        ))}
-      </div>
-    </div>
+        {events.length ? (
+          <ul className="case-requirement-list">
+            {events.map((e) => (
+              <li key={e.id}>
+                <p className="text-sm">
+                  {e.caseId} · {e.text}
+                </p>
+                <time className="text-xs text-muted-foreground">
+                  {new Date(e.at).toLocaleString()}
+                </time>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="panel-body text-muted-foreground text-sm">
+            No case activity has been recorded.
+          </div>
+        )}
+      </section>
+    </WorkspacePage>
   );
 }

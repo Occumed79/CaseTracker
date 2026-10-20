@@ -18,6 +18,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { ReactNode, useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Toaster } from "@/components/ui/toaster";
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -41,9 +42,9 @@ export function Layout({ children }: { children: ReactNode }) {
           { href: "/messages", label: "Messages", icon: MessageSquare },
         ];
   const resources = [
-    { href: "/timeline", label: "Case history", icon: Clock },
-    { href: "/eforms", label: "Forms", icon: FileText },
-    { href: "/map", label: "Clinic map", icon: MapPin },
+    { href: "/timeline", label: "Case activity", icon: Clock },
+    { href: "/eforms", label: "Authorization forms", icon: FileText },
+    { href: "/map", label: "Assigned clinic", icon: MapPin },
     { href: "/more", label: "All resources", icon: MoreHorizontal },
   ];
   const preferences = [
@@ -71,9 +72,7 @@ export function Layout({ children }: { children: ReactNode }) {
         inert={!sidebarVisible}
       >
         <Link href={role === "admin" ? "/admin" : "/"} className="mac-brand">
-          <div className="mac-brand-icon">
-            <img src="/occu-med-logo.png" alt="" />
-          </div>
+          <BrandLogo />
           <div>
             <strong>CaseTrack</strong>
             <span>Occu-Med</span>
@@ -109,7 +108,7 @@ export function Layout({ children }: { children: ReactNode }) {
             <strong>
               {role === "admin" ? "Case manager" : "Applicant portal"}
             </strong>
-            <span>Demo workspace</span>
+            <span>Browser workspace</span>
           </div>
         </div>
       </aside>

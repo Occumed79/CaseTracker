@@ -15,15 +15,15 @@ A mobile-first PWA prototype for medical readiness case tracking — pre-employm
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - Frontend: React + Vite + Tailwind CSS + shadcn/ui + framer-motion + wouter
 - Backend: Express 5 (serves both `/api` routes and React static files)
-- Data: All mock data via localStorage — no real backend calls from the React app
+- Data: Case entries added by the user are stored in this browser; no shared case-system connection is configured
 - Build: esbuild (api-server), Vite (frontend)
 
 ## Where things live
 
 - `artifacts/occu-med/src/` — React app source
-- `artifacts/occu-med/src/pages/` — All 22 screens
+- `artifacts/occu-med/src/pages/` — Application screens
 - `artifacts/occu-med/src/contexts/AuthContext.tsx` — Auth state (applicant vs admin role, persisted to localStorage)
-- `artifacts/occu-med/src/data/mockData.ts` — All mock data
+- `artifacts/occu-med/src/contexts/CaseContext.tsx` — Case state with empty defaults and browser persistence
 - `artifacts/occu-med/src/index.css` — Neutral macOS-inspired theme and responsive workspace
 - `artifacts/occu-med/public/occu-med-logo.png` — App logo
 - `artifacts/api-server/src/app.ts` — Express server (API routes + serves `occu-med/dist/public/` as static)
@@ -31,9 +31,11 @@ A mobile-first PWA prototype for medical readiness case tracking — pre-employm
 ## Architecture decisions
 
 - The React app is served as a static build through the Express api-server (port 8080) — this avoids Replit's port registration limitation that prevents Vite's dev server from being detected by the workflow health check
-- All app data is mock/localStorage only — fully portable, no real DB or API calls from the frontend
+- Case data starts empty and is browser-local; no seeded applicant records or live FileMaker connection
 - Auth is role-based (applicant / admin) stored in localStorage — for prototype purposes only
 - Wouter is used for client-side routing with a base path of "/"
+
+See `docs/occumed-content-sources.md` for source verification, terminology corrections, and operational scope.
 
 ## Product
 

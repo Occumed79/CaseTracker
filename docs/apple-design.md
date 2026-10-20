@@ -31,9 +31,9 @@ CaseTrack is a React web application. This implementation follows Apple's macOS 
 
 These are web implementation choices inspired by the HIG, not a claim that fixed CSS hex values reproduce macOS dynamic system colors. Native Liquid Glass uses OS rendering; CSS blur is an approximation. Light appearance is intentional in this revision.
 
-The dashboard keeps the repository's existing sample case, progress, history and actions. The deadline is shown from the case data instead of the previous hard-coded “12 days left.” Authentication and application data remain the existing localStorage prototype behavior.
+The subsequent Occu-Med content correction removes the seeded case, medical information, and fabricated activity. Case views now start empty and reflect browser-local entries. See `occumed-content-sources.md` for the current data and terminology scope.
 
-## Validation
+## Validation of the initial UI redesign
 
 - CaseTrack production build and frontend TypeScript check pass.
 - Shared library, API server, and scripts TypeScript checks pass.
