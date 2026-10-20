@@ -1,105 +1,52 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Info, Sparkles, ArrowRight, Activity, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-
+import { Link } from "wouter";
+import { CaseRequirements, WorkspacePage } from "@/components/CaseWorkspace";
 export default function RDQAExplainer() {
-  const [query, setQuery] = useState("");
-  const [explanation, setExplanation] = useState<string | null>(null);
-  const [isExplaining, setIsExplaining] = useState(false);
-
-  const handleExplain = () => {
-    if (!query.trim()) return;
-    setIsExplaining(true);
-    // Mock API delay
-    setTimeout(() => {
-      setExplanation("Your provider is requesting a 'Clearance Letter' from your cardiologist. This means your heart specialist needs to write a brief letter stating that your current condition is stable and that you have no restrictions for working in a deployed environment. They also need to see your blood pressure readings for the last 30 days to ensure your medication is working correctly.");
-      setIsExplaining(false);
-    }, 1500);
-  };
-
   return (
-    <div className="p-4 space-y-6 pb-20">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">RDQA Explainer</h1>
-        <p className="text-muted-foreground text-sm">Understand your medical requests.</p>
-      </div>
-
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-3xl p-5 border border-amber-500/20 relative overflow-hidden">
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 blur-3xl rounded-full"></div>
-        <div className="flex gap-3 items-start relative z-10">
-          <div className="p-2 rounded-xl bg-amber-500/20 text-amber-500 mt-1 shrink-0">
-            <Info className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="text-foreground font-medium mb-1">What is an RDQA?</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              "Request for Documentation, Qualification, or Action" is standard procedure. It means the medical review team needs more specific information from your personal doctor before they can clear you. It is not a denial.
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-3">
-        <h3 className="text-sm font-semibold text-foreground px-1">Translate Medical Jargon</h3>
-        <div className="glass-card rounded-2xl p-4 border border-primary/20">
-          <p className="text-xs text-muted-foreground mb-3">Paste the text from your RDQA notice below, and we'll explain it in plain English.</p>
-          <Textarea
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="e.g., 'SME requires cardiology clearance stating no restrictions...'"
-            className="min-h-[100px] bg-secondary border-border text-foreground resize-none mb-3"
-          />
-          <Button
-            onClick={handleExplain}
-            disabled={!query.trim() || isExplaining}
-            className="w-full bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 rounded-xl"
-          >
-            {isExplaining ? (
-              <span className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                Analyzing...
-              </span>
-            ) : (
-              <span className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                Explain This Request
-              </span>
-            )}
-          </Button>
-        </div>
-
-        {explanation && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="glass-card rounded-2xl p-5 border border-primary/40 glow-blue relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <Sparkles className="w-16 h-16 text-primary" />
-            </div>
-            <h4 className="text-sm font-bold text-primary mb-2 flex items-center gap-2">
-              <Sparkles className="w-4 h-4" /> Plain English Explanation
-            </h4>
-            <p className="text-sm text-foreground leading-relaxed relative z-10">{explanation}</p>
-
-            <div className="mt-4 pt-4 border-t border-border relative z-10">
-              <h5 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">Checklist for your doctor:</h5>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2 text-sm text-foreground">
-                  <FileText className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  Clearance letter stating "no restrictions"
-                </li>
-                <li className="flex items-start gap-2 text-sm text-foreground">
-                  <Activity className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  Blood pressure logs (last 30 days)
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </motion.div>
-    </div>
+    <WorkspacePage title="RDQA" description="Occu-Med’s RDQ follow-up service.">
+      <section className="mac-panel panel-body space-y-4">
+        <h2 className="font-semibold">What the process involves</h2>
+        <p className="text-sm leading-relaxed">
+          Occu-Med guides candidates and employees classified as RDQ through the
+          additional-information process on behalf of the employer. Examination
+          findings may need clarification or rebuttal before Occu-Med can make a
+          final placement recommendation.
+        </p>
+        <p className="text-sm leading-relaxed">
+          The case-specific RDQA letter identifies the findings requiring
+          follow-up, the medical information needed, and the type of provider
+          best suited to supply it. Follow the requirements in that letter.
+        </p>
+      </section>
+      <CaseRequirements />
+      <section className="mac-panel panel-body space-y-4">
+        <h2 className="font-semibold">Your next steps</h2>
+        <ol className="list-decimal pl-5 space-y-3 text-sm">
+          <li>
+            Share the RDQA letter with the appropriate provider of your choice
+            and arrange the required follow-up.
+          </li>
+          <li>
+            Provide the specific information requested. A general statement that
+            you are “cleared” may not address the case requirements.
+          </li>
+          <li>
+            Review the deadline and financial responsibility stated for your
+            case. If more time is needed, request an extension through your case
+            manager.
+          </li>
+          <li>
+            Occu-Med reviews the additional information. An examining provider’s
+            opinion does not replace Occu-Med’s placement recommendation.
+          </li>
+        </ol>
+        <p className="text-xs text-muted-foreground">
+          Based on Occu-Med’s RDQA training guidance. Case and client protocols
+          control the requirements.
+        </p>
+        <Link href="/extension-request" className="mac-text-link">
+          Extension request
+        </Link>
+      </section>
+    </WorkspacePage>
   );
 }

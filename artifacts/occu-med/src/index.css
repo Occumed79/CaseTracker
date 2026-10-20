@@ -922,3 +922,165 @@
     justify-content: space-between;
   }
 }
+/* Supplied Occu-Med artwork is used intact, with a navy backing for the white logo. */
+.brand-logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 64px;
+  background: #153258;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.brand-logo-large {
+  width: 220px;
+  height: 146px;
+  border-radius: 18px;
+}
+.mac-brand {
+  gap: 9px;
+  padding-inline: 3px;
+}
+.mac-brand strong {
+  font-size: 14px;
+}
+.mac-nav-item {
+  gap: 9px;
+  font-size: 12px;
+}
+.mac-nav-item span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.empty-case {
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.empty-case > svg {
+  color: var(--system-blue);
+}
+.workspace-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: hsl(var(--secondary));
+  border: 1px solid hsl(var(--border));
+  border-radius: 9px;
+}
+.workspace-context > div {
+  flex: 1 1 220px;
+}
+.workspace-context span {
+  font-size: 12px;
+  font-weight: 600;
+}
+.workspace-context p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+.case-picker-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 100%;
+}
+.case-picker-label select {
+  width: min(100%, 320px);
+  min-height: 36px;
+  max-width: 100%;
+}
+.case-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.workspace-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.workspace-field input,
+.workspace-field select,
+.workspace-field textarea {
+  width: 100%;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+.case-requirement-list {
+  padding: 4px 22px;
+}
+.case-requirement-list li {
+  padding: 15px 0;
+  border-bottom: 1px solid hsl(var(--border));
+  overflow-wrap: anywhere;
+}
+.case-requirement-list li:last-child {
+  border-bottom: 0;
+}
+.selected-case {
+  border-color: var(--system-blue);
+}
+.form-reference-note {
+  padding: 16px;
+  background: #fff8e9;
+  border: 1px solid #e9d9b6;
+  border-radius: 8px;
+  color: #724b00;
+  font-size: 12px;
+}
+.form-reference-note p {
+  margin-top: 5px;
+}
+.form-pdf-preview {
+  width: 100%;
+  height: 72dvh;
+  min-height: 420px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 9px;
+  background: var(--surface);
+}
+/* One transient press ring for native buttons, custom buttons, and navigation links. */
+:is(button, a[href], [role="button"], input[type="submit"]).is-press-lit,
+:is(button, a[href], [role="button"], input[type="submit"]):active:not(
+    :disabled
+  ) {
+  outline: 2px solid rgba(0, 104, 217, 0.8) !important;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 5px rgba(0, 104, 217, 0.18),
+    0 0 18px rgba(0, 104, 217, 0.38) !important;
+}
+:is(button, input[type="submit"]):disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (max-width: 640px) {
+  .case-fields-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.case-search-input {
+  padding-left: 36px;
+}
