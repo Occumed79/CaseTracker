@@ -19,7 +19,7 @@ export default function Vault() {
             This workspace has not received or stored examination results for
             this case. Request records through the established Occu-Med process.
           </p>
-          <Link href="/eforms" className="mac-primary-button">
+          <Link href="/examinee/eforms" className="mac-primary-button">
             Authorization forms
           </Link>
         </section>

@@ -28,7 +28,7 @@ export default function ProviderInstructions() {
           documents findings; the employer communicates the final qualification
           decision.
         </p>
-        <Link href="/eforms" className="mac-primary-button">
+        <Link href="/examinee/eforms" className="mac-primary-button">
           View authorization references
         </Link>
       </section>

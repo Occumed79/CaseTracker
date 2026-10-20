@@ -1,12 +1,14 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Redirect, Router as WouterRouter, useLocation } from "wouter";
+import type { ComponentType } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ClickFeedback } from "@/components/ClickFeedback";
 import { CaseProvider } from "@/contexts/CaseContext";
 import { Layout } from "@/components/Layout";
+import { PORTAL_HOME, LEGACY_EXAMINEE_PATHS } from "@/lib/portalRoutes";
+import type { PortalRole } from "@/lib/portalRoutes";
 
-// Pages
 import Splash from "@/pages/splash";
 import Login from "@/pages/login";
 import Dashboard from "@/pages/dashboard";
@@ -35,24 +37,36 @@ import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
 
-function ProtectedRoute({
-  component: Component,
-  adminOnly = false,
-}: {
-  component: any;
-  adminOnly?: boolean;
-}) {
+// A UI-only role guard. The demo has no server authentication or case-level access control.
+function PortalRoute({ component: Component, portal }: { component: ComponentType; portal: PortalRole }) {
   const { role } = useAuth();
-
-  if (!role) return <Login />;
-  if (adminOnly && role !== "admin")
+  if (!role) return <Redirect to="/login" />;
+  if (role !== portal) {
     return (
-      <div className="p-8 text-center text-muted-foreground mt-20">
-        Access Denied
+      <div className="mac-panel panel-body space-y-3" role="alert">
+        <h1 className="font-semibold text-xl">This is a separate portal</h1>
+        <p className="text-sm text-muted-foreground">
+          Sign out before opening another portal. This demonstration does not provide account sign-in.
+        </p>
+        <a href={PORTAL_HOME[role]} className="mac-primary-button">Return to your portal</a>
       </div>
     );
-
+  }
   return <Component />;
+}
+
+function LandingRoute() {
+  const { role } = useAuth();
+  return role ? <Redirect to={PORTAL_HOME[role]} /> : <Redirect to="/login" />;
+}
+
+function LegacyRoute() {
+  const { role } = useAuth();
+  const [location] = useLocation();
+  const destination = LEGACY_EXAMINEE_PATHS[location];
+  if (destination && role === "applicant") return <Redirect to={destination} />;
+  if (destination && role === "admin") return <Redirect to={PORTAL_HOME.admin} />;
+  return <NotFound />;
 }
 
 function Router() {
@@ -60,100 +74,38 @@ function Router() {
     <Switch>
       <Route path="/splash" component={Splash} />
       <Route path="/login" component={Login} />
+      <Route path="/" component={LandingRoute} />
 
-      <Route
-        path="/"
-        component={() => <ProtectedRoute component={Dashboard} />}
-      />
-      <Route
-        path="/tasks"
-        component={() => <ProtectedRoute component={Tasks} />}
-      />
-      <Route
-        path="/uploads"
-        component={() => <ProtectedRoute component={Uploads} />}
-      />
-      <Route
-        path="/messages"
-        component={() => <ProtectedRoute component={Messages} />}
-      />
-      <Route
-        path="/more"
-        component={() => <ProtectedRoute component={More} />}
-      />
+      {/* Admin-only navigation and screens */}
+      <Route path="/admin" component={() => <PortalRoute component={AdminDashboard} portal="admin" />} />
+      <Route path="/admin/cases" component={() => <PortalRoute component={AdminCases} portal="admin" />} />
+      <Route path="/admin/invites" component={() => <PortalRoute component={AdminInvites} portal="admin" />} />
+      <Route path="/admin/clinic-map" component={() => <PortalRoute component={Map} portal="admin" />} />
+      <Route path="/admin/settings" component={() => <PortalRoute component={Settings} portal="admin" />} />
+      <Route path="/admin/settings/filemaker" component={() => <PortalRoute component={FilemakerSettings} portal="admin" />} />
 
-      {/* Admin routes */}
-      <Route
-        path="/admin"
-        component={() => (
-          <ProtectedRoute component={AdminDashboard} adminOnly />
-        )}
-      />
-      <Route
-        path="/admin/cases"
-        component={() => <ProtectedRoute component={AdminCases} adminOnly />}
-      />
-      <Route
-        path="/admin/invites"
-        component={() => <ProtectedRoute component={AdminInvites} adminOnly />}
-      />
+      {/* Examinee-only navigation and screens */}
+      <Route path="/examinee" component={() => <PortalRoute component={Dashboard} portal="applicant" />} />
+      <Route path="/examinee/tasks" component={() => <PortalRoute component={Tasks} portal="applicant" />} />
+      <Route path="/examinee/uploads" component={() => <PortalRoute component={Uploads} portal="applicant" />} />
+      <Route path="/examinee/messages" component={() => <PortalRoute component={Messages} portal="applicant" />} />
+      <Route path="/examinee/more" component={() => <PortalRoute component={More} portal="applicant" />} />
+      <Route path="/examinee/timeline" component={() => <PortalRoute component={Timeline} portal="applicant" />} />
+      <Route path="/examinee/rdqa" component={() => <PortalRoute component={RDQAExplainer} portal="applicant" />} />
+      <Route path="/examinee/waiver" component={() => <PortalRoute component={Waiver} portal="applicant" />} />
+      <Route path="/examinee/clinic-map" component={() => <PortalRoute component={Map} portal="applicant" />} />
+      <Route path="/examinee/reminders" component={() => <PortalRoute component={Reminders} portal="applicant" />} />
+      <Route path="/examinee/eforms" component={() => <PortalRoute component={EForms} portal="applicant" />} />
+      <Route path="/examinee/vault" component={() => <PortalRoute component={Vault} portal="applicant" />} />
+      <Route path="/examinee/appointment-request" component={() => <PortalRoute component={AppointmentRequest} portal="applicant" />} />
+      <Route path="/examinee/extension-request" component={() => <PortalRoute component={ExtensionRequest} portal="applicant" />} />
+      <Route path="/examinee/profile" component={() => <PortalRoute component={Profile} portal="applicant" />} />
+      <Route path="/examinee/provider-instructions" component={() => <PortalRoute component={ProviderInstructions} portal="applicant" />} />
+      <Route path="/examinee/travel" component={() => <PortalRoute component={TravelReadiness} portal="applicant" />} />
+      <Route path="/examinee/settings" component={() => <PortalRoute component={Settings} portal="applicant" />} />
+      <Route path="/examinee/settings/filemaker" component={() => <PortalRoute component={FilemakerSettings} portal="applicant" />} />
 
-      {/* Detail routes */}
-      <Route
-        path="/timeline"
-        component={() => <ProtectedRoute component={Timeline} />}
-      />
-      <Route
-        path="/rdqa"
-        component={() => <ProtectedRoute component={RDQAExplainer} />}
-      />
-      <Route
-        path="/waiver"
-        component={() => <ProtectedRoute component={Waiver} />}
-      />
-      <Route path="/map" component={() => <ProtectedRoute component={Map} />} />
-      <Route
-        path="/reminders"
-        component={() => <ProtectedRoute component={Reminders} />}
-      />
-      <Route
-        path="/eforms"
-        component={() => <ProtectedRoute component={EForms} />}
-      />
-      <Route
-        path="/vault"
-        component={() => <ProtectedRoute component={Vault} />}
-      />
-      <Route
-        path="/appointment-request"
-        component={() => <ProtectedRoute component={AppointmentRequest} />}
-      />
-      <Route
-        path="/extension-request"
-        component={() => <ProtectedRoute component={ExtensionRequest} />}
-      />
-      <Route
-        path="/profile"
-        component={() => <ProtectedRoute component={Profile} />}
-      />
-      <Route
-        path="/provider-instructions"
-        component={() => <ProtectedRoute component={ProviderInstructions} />}
-      />
-      <Route
-        path="/travel"
-        component={() => <ProtectedRoute component={TravelReadiness} />}
-      />
-      <Route
-        path="/settings"
-        component={() => <ProtectedRoute component={Settings} />}
-      />
-      <Route
-        path="/settings/filemaker"
-        component={() => <ProtectedRoute component={FilemakerSettings} />}
-      />
-
-      <Route component={NotFound} />
+      <Route component={LegacyRoute} />
     </Switch>
   );
 }
@@ -166,9 +118,7 @@ function App() {
           <ClickFeedback />
           <AuthProvider>
             <CaseProvider>
-              <Layout>
-                <Router />
-              </Layout>
+              <Layout><Router /></Layout>
             </CaseProvider>
           </AuthProvider>
         </WouterRouter>

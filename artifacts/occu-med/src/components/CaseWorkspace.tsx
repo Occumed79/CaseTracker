@@ -47,6 +47,7 @@ export function EmptyCase({
 }
 export function CasePicker() {
   const { cases, selectedCase, selectCase, storageError } = useCases();
+  const { role } = useAuth();
   return (
     <div className="workspace-context">
       <div>
@@ -56,7 +57,7 @@ export function CasePicker() {
           connection is configured.
         </p>
       </div>
-      {cases.length > 0 && (
+      {role === "admin" && cases.length > 0 && (
         <label className="case-picker-label">
           Selected case
           <select
@@ -72,6 +73,9 @@ export function CasePicker() {
             ))}
           </select>
         </label>
+      )}
+      {role === "applicant" && selectedCase && (
+        <p className="text-xs text-muted-foreground">Case {selectedCase.id} · {selectedCase.name}</p>
       )}
       {storageError && <p role="alert">{storageError}</p>}
     </div>

@@ -43,7 +43,7 @@ export default function RDQAExplainer() {
           Based on Occu-Med’s RDQA training guidance. Case and client protocols
           control the requirements.
         </p>
-        <Link href="/extension-request" className="mac-text-link">
+        <Link href="/examinee/extension-request" className="mac-text-link">
           Extension request
         </Link>
       </section>

@@ -1084,3 +1084,102 @@
 .case-search-input {
   padding-left: 36px;
 }
+
+
+/* Portal refresh: unobstructed original logo and a restrained navy/graphite palette. */
+:root {
+  --background: 220 13% 96%;
+  --primary: 210 42% 30%;
+  --ring: 210 42% 30%;
+  --accent: 210 26% 91%;
+  --accent-foreground: 210 42% 30%;
+  --sidebar: 212 16% 93%;
+  --sidebar-accent: 210 23% 86%;
+  --sidebar-accent-foreground: 210 42% 26%;
+  --sidebar-primary: 210 42% 30%;
+  --sidebar-ring: 210 42% 30%;
+  --canvas: #f3f5f7;
+  --sidebar-surface: rgba(232, 236, 241, 0.95);
+  --text-primary: #202a34;
+  --text-secondary: #596778;
+  --system-blue: #365a77;
+  --system-green: #37735e;
+  --system-amber: #986d36;
+  --system-red: #b94037;
+  --system-purple: #656281;
+  --ink-rgb: 32, 42, 52;
+}
+
+.mac-app { background: var(--canvas); }
+.mac-sidebar { background: var(--sidebar-surface); }
+.mac-toolbar { background: rgba(251, 252, 253, 0.94); }
+.mac-nav-item svg { color: #6a7684; }
+.mac-nav-item.is-selected svg { color: var(--system-blue); }
+.mac-nav-item.is-selected { background: #d6e0e8; color: #23445e; }
+.mac-panel { box-shadow: 0 3px 16px rgba(28, 45, 63, 0.04); }
+
+/* Existing transparent logo art, without the previous blue rectangle. */
+.brand-logo,
+.brand-logo-large {
+  width: 160px;
+  height: 102px;
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+}
+.brand-logo img {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(16%) saturate(1450%) hue-rotate(168deg) brightness(95%) contrast(94%);
+  transform: scale(1.27);
+}
+.brand-logo-large { width: 230px; height: 153px; }
+.brand-logo-large img { transform: scale(1.18); }
+.mac-brand { flex-direction: column; align-items: center; gap: 0; padding: 0 8px 14px; }
+.mac-brand-product { font-size: 15px; font-weight: 680; letter-spacing: -0.03em; margin-top: -2px; color: #30465c; }
+.mac-portal-name { margin: 0 10px 22px; text-align: center; color: var(--text-secondary); font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.1em; }
+.mac-signout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #cbd2da;
+  border-radius: 9px;
+  color: #354c61;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 650;
+}
+.mac-signout-button:hover { background: #fff; }
+
+/* Sign-in paths are intentionally separate and use distinct but calm surfaces. */
+.mac-login-eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .17em; color: #51718d; margin-bottom: 5px; }
+.portal-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.portal-choice { text-align: left; border: 1px solid #cfd8e1; background: #fff; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 11px; box-shadow: 0 8px 28px rgba(36, 57, 77, .05); min-height: 240px; transition: box-shadow .2s ease, transform .2s ease; }
+.portal-choice:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(36, 57, 77, .1); }
+.portal-choice strong { font-size: 17px; color: #283f56; }
+.portal-choice > span:not(.portal-choice-icon):not(.portal-choice-arrow) { font-size: 12px; line-height: 1.6; color: #576979; }
+.portal-choice-icon { color: #365a77; display: grid; place-items: center; width: 44px; height: 44px; background: #e5ecf2; border-radius: 12px; }
+.portal-choice-admin .portal-choice-icon { background: #e9e8e3; color: #5b5b57; }
+.portal-choice-arrow { margin-top: auto; display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: #365a77; }
+
+/* Restore the embedded clinic map, without any demo directory or imaginary markers. */
+.clinic-map-panel { overflow: hidden; }
+.clinic-map-frame { height: 380px; width: 100%; background: #e8edf0; border-block: 1px solid #d8dfe5; }
+.clinic-map-frame iframe { display: block; border: 0; width: 100%; height: 100%; }
+.clinic-map-actions { padding: 18px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+@media (max-width: 767px) {
+  .clinic-map-frame { height: 290px; }
+  .portal-choice-grid { grid-template-columns: 1fr; }
+  .portal-choice { min-height: 195px; }
+  .mac-mobile-nav { background: rgba(250, 251, 252, 0.97); }
+  .mac-mobile-nav a { min-width: 0; flex: 1 1 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-choice { transition: none; }
+  .portal-choice:hover { transform: none; }
+}
+
+.mac-brand .brand-logo { display: inline-flex; }
+.mac-brand .mac-brand-product { display: block; font-size: 15px; color: #30465c; }
