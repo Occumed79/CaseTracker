@@ -1180,3 +1180,6 @@
   .portal-choice { transition: none; }
   .portal-choice:hover { transform: none; }
 }
+
+.mac-brand .brand-logo { display: inline-flex; }
+.mac-brand .mac-brand-product { display: block; font-size: 15px; color: #30465c; }
